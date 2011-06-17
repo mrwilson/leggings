@@ -14,6 +14,7 @@ public class Main extends PApplet{
 		world = new World(this);
 		size(800,600);
 		background(0);
+		loop();
 	}
 	
 	public void draw() {
