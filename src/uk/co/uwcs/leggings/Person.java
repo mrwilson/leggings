@@ -16,7 +16,7 @@ public class Person {
 		parent = p;
 	}
 	public void update() {
-		y = y + 10/parent.frameRate;
+		y += 10/parent.frameRate;
 	}
 
 	public void draw() {

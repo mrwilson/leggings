@@ -14,7 +14,7 @@ public class World extends Screen {
 		people = new ArrayList<Person>();
 		this.parent = p;
 		people.add(new Person(parent, 200, 100));
-		Person.images.put("default", parent.loadImage("/home/zed0/workspace/leggings/res/images/Z0small.jpg"));
+		Person.images.put("default", parent.loadImage("../res/images/Z0small.jpg"));
 	}
 	
 	public void update()
