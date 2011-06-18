@@ -11,11 +11,13 @@ import processing.core.PImage;
 public class World extends Screen {
 	PImage gui; 
 	ArrayList<Person> people;
+	ArrayList<Person> peopletoadd;
 	ArrayList<Brick> terrain;
 	Brick[][] collisionMap = new Brick[1000][1000];
 	PImage background;
 	PApplet parent;
 	float timeRemaining;
+	Timer creationTimer;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -26,6 +28,8 @@ public class World extends Screen {
 		try {
 			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
+			peopletoadd= level.getPeopleList();
+			creationTimer = new Timer(5);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -37,6 +41,7 @@ public class World extends Screen {
 
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
+		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
@@ -57,6 +62,14 @@ public class World extends Screen {
 
 	public void update()
 	{
+		if(creationTimer.isOver()){
+			if (!peopletoadd.isEmpty()){
+				people.add(peopletoadd.get(0));
+				peopletoadd.remove(0);
+				creationTimer.reset();
+			}
+		}
+		creationTimer.update(1/parent.frameRate);
 		Iterator<Person> it = people.iterator();
 		while(it.hasNext())
 		{
@@ -65,7 +78,7 @@ public class World extends Screen {
 	}
 
 	public void display() {
-		parent.image(background, 0, 0, parent.width, parent.height);
+		//parent.image(background, 0, 0, parent.width, parent.height);
 		
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
