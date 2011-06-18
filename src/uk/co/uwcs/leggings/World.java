@@ -27,7 +27,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("/Users/MrWilson/workspace/leggings/res/oep/NewLevel.xml"));
+			Level level = new Level(parent, new File("./res/oep/NewLevel.xml"));
 			terrain = level.getLevelList();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
