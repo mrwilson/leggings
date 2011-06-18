@@ -7,7 +7,7 @@ import processing.core.PImage;
 
 public class Person extends Lego{
 	private PApplet parent;
-	private float x,y
+	private float x,y;
 	private int height,width;
 	private boolean facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
