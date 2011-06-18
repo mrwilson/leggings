@@ -14,8 +14,8 @@ public class Brick extends Lego {
 		parent = p;
 		this.x = x;
 		this.y = y;
-		this.height = 10;
-		this.width = 20;
+		this.height = 1;
+		this.width = 2;
 	}
 
 	public int getX() {
@@ -32,6 +32,7 @@ public class Brick extends Lego {
 	}
 
 	public void draw() {
-		parent.rect(x*WIDTH,y*HEIGHT,width*WIDTH,height*HEIGHT);
+		parent.image(images.get("default"),x*WIDTH,y*HEIGHT,width*WIDTH,(int)(height*HEIGHT*1.2));
+		//parent.rect(x*WIDTH,y*HEIGHT,width*WIDTH,height*HEIGHT);
 	}
 }

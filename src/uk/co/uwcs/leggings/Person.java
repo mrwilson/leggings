@@ -54,8 +54,8 @@ public class Person extends Lego{
 	}
 
 	public void draw() {
-		//parent.image(images.get("default"), x, y);
-		parent.rect(x,y,width*WIDTH,height*HEIGHT);
+		parent.image(images.get("default"),x,y+2,width*WIDTH,height*HEIGHT);
+		//parent.rect(x,y,width*WIDTH,height*HEIGHT);
 	}
 	
 	
