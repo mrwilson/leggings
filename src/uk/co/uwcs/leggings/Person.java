@@ -11,7 +11,7 @@ public class Person extends Lego{
 	private int height,width;
 	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
-	private Timer animation = new Timer((float)0.5);
+	private Timer animation = new Timer((float)0.1);
 	private int walkcycle =0;
 
 	public Person(PApplet p, float x, float y) {
@@ -38,7 +38,7 @@ public class Person extends Lego{
 
 		for(int j=0; j<width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
-			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
+			if(collisionMap[(int) (x/WIDTH)+j-(int)(facing*0.5-0.5)][bottom] != null) {
 				downwards[j] = true;
 				down = true;
 			}

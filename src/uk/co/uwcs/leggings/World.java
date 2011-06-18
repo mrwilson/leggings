@@ -34,8 +34,8 @@ public class World extends Screen {
 			e.printStackTrace();
 		}
 
-		people.add(new Person(parent, 30, 8));
-		people.add(new Person(parent, 26, 8));
+		people.add(new Person(parent, 10, 8));
+		people.add(new Person(parent, 12, 8));
 		people.add(new Person(parent, 24, 8));
 		people.add(new Person(parent, 32, 8));
 
