@@ -19,6 +19,9 @@ public class World extends Screen {
 	PApplet parent;
 	float timeRemaining;
 	Timer creationTimer;
+	int fourblock = 0;
+	int sixblock = 0;
+	int twoblock = 0;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -35,10 +38,10 @@ public class World extends Screen {
 			e.printStackTrace();
 		}
 
-		people.add(new Person(parent, 5, 8));
-//		people.add(new Person(parent, 26, 8));
-//		people.add(new Person(parent, 24, 8));
-//		people.add(new Person(parent, 32, 8));
+		//people.add(new Person(parent, 10, 8));
+		people.add(new Person(parent, 12, 8));
+		//people.add(new Person(parent, 24, 8));
+		//people.add(new Person(parent, 32, 8));
 
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
