@@ -2,8 +2,6 @@ package uk.co.uwcs.leggings;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilePermission;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
@@ -28,6 +26,12 @@ public class World extends Screen {
 		people = new ArrayList<Person>();
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
+		try {
+			Level level = new Level(parent, new File("/Users/MrWilson/workspace/leggings/res/oep/NewLevel.xml"));
+			terrain = level.getLevelList();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}	
 		people.add(new Person(parent, 300, 100));
 		people.add(new Person(parent, 260, 100));
 		people.add(new Person(parent, 240, 100));
@@ -93,11 +97,7 @@ public class World extends Screen {
             }
         }, 0, 1000);
         
-		try {
-			Level level = new Level(parent, new File("../res/oep/NewLevel.xml"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 	

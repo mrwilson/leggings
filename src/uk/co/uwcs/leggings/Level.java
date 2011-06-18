@@ -12,16 +12,15 @@ public class Level {
 	XMLElement levelXML;
 	ArrayList<Brick> levelList;
 	
-	public Level(PApplet p, File file) throws FileNotFoundException {
+	public Level(PApplet p, File file) throws FileNotFoundException{
 		levelXML = new XMLElement(new FileReader(file)).getChild("bricks");
-		
+		levelList = new ArrayList<Brick>();
 		for(int i = 0; i < levelXML.getChildCount(); i++) {
 			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
 			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
 			System.out.println(x + "," + y);
-			//levelList.add(new Brick(p, ))
+			levelList.add(new Brick(p,x,y));
 		}
-
 	}
 
 	public ArrayList<Brick> getLevelList() {
