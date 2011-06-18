@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class World extends Screen {
-
+	PImage gui; 
 	ArrayList<Person> people;
 	ArrayList<Brick> terrain;
 	Brick[][] collisionMap = new Brick[1000][1000];
@@ -69,6 +70,8 @@ public class World extends Screen {
 				}
 			}
 		}
+		gui = parent.loadImage("../res/images/GUI.png");
+
 	}
 	
 	public void update()
@@ -92,6 +95,7 @@ public class World extends Screen {
 		{
 			it.next().draw();
 		}
+		parent.image(gui, 0, 400, 800, 200);
 	}
 	
 }
