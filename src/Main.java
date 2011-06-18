@@ -1,8 +1,11 @@
 import processing.core.PApplet;
 import uk.co.uwcs.leggings.World;
 
+
 public class Main extends PApplet{
-		
+	
+	public static final int WIDTH = 10;
+	public static final int HEIGHT = 12;
 	private static final long serialVersionUID = 1L;
 	public static World world;
 	
