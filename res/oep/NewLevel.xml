@@ -1,0 +1,20 @@
+<level>
+  <width>800</width>
+  <height>600</height>
+  <bricks>
+    <green x="80" y="464"/>
+    <green x="112" y="464"/>
+    <grey x="96" y="448"/>
+    <red x="144" y="464"/>
+    <red x="128" y="448"/>
+    <blue x="176" y="464"/>
+    <blue x="160" y="448"/>
+    <yellow x="112" y="432"/>
+    <grey x="192" y="448"/>
+    <grey x="208" y="464"/>
+    <grey x="224" y="448"/>
+    <grey x="208" y="432"/>
+    <green x="240" y="432"/>
+    <green x="144" y="432"/>
+  </bricks>
+</level>

@@ -1,0 +1,43 @@
+package uk.co.uwcs.leggings;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+
+import processing.core.PApplet;
+import processing.xml.XMLElement;
+
+public class Level {
+	XMLElement levelXML;
+	ArrayList<Brick> levelList;
+	
+	public Level(PApplet p, File file) throws FileNotFoundException {
+		levelXML = new XMLElement(new FileReader(file)).getChild("bricks");
+		
+		for(int i = 0; i < levelXML.getChildCount(); i++) {
+			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
+			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
+			System.out.println(x + "," + y);
+			//levelList.add(new Brick(p, ))
+		}
+
+	}
+
+	public ArrayList<Brick> getLevelList() {
+		return levelList;
+	}
+
+	public void setLevelList(ArrayList<Brick> levelList) {
+		this.levelList = levelList;
+	}
+	
+	public void printXML() {
+		System.out.println(levelXML.toString());
+		/*for(int i = 0; i < levelXML.getChildCount(); i++) {
+			System.out.println( i + " " + levelXML.getChild(i));
+		}*/
+	}
+
+	
+}
