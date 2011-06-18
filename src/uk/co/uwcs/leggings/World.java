@@ -42,12 +42,17 @@ public class World extends Screen {
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
+		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
 			Brick currentBrick = it.next();
-			for(int i=0; i<currentBrick.getWidth(); ++i) {
-				for(int j=0; j<currentBrick.getHeight(); ++j) {
-					collisionMap[i+currentBrick.getX()][j+currentBrick.getY()] = currentBrick;
+			if(currentBrick.collidable)
+			{
+				for(int i=0; i<currentBrick.getWidth(); ++i) {
+					for(int j=0; j<currentBrick.getHeight(); ++j) {
+						collisionMap[i+currentBrick.getX()][j+currentBrick.getY()] = currentBrick;
+					}
 				}
 			}
 		}
