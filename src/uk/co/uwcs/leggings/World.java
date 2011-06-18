@@ -51,7 +51,7 @@ public class World extends Screen {
 				}
 			}
 		}
-		gui = parent.loadImage("res/images/GUI.png");
+		gui = parent.loadImage("../res/images/GUI.png");
 		timeRemaining = 30;
 	}
 
