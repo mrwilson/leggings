@@ -11,9 +11,13 @@ public class Person extends Lego{
 	private int height,width;
 	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
+	private PImage sprite;
 
 	private Timer animation = new Timer((float)0.1);
+	private Timer anibuild = new Timer((float)0.3);
+
 	private int walkcycle =0;
+	private String type = "walking";
 
 	public Person(PApplet p, float x, float y) {
 		facing = 1;
@@ -24,14 +28,29 @@ public class Person extends Lego{
 		this.height = 4;
 	}
 	public int update(Brick[][] collisionMap) {
-		animation.update(1/parent.frameRate);
-		if (animation.isOver()){
-			walkcycle++;
-			if (walkcycle == 8){
-				walkcycle = 0;
-			}
-			animation.reset();
+		
+		/******************************animation stuff*************************************/
+		if (type.equals("walking")){
+			animation.update(1/parent.frameRate);
+			if (animation.isOver()){
+				walkcycle++;
+				if (walkcycle == 8){
+					walkcycle = 0;
+				}
+				animation.reset();
+			}	
+		}else if(type.equals("building")){
+			anibuild.update(1/parent.frameRate);
+			if (anibuild.isOver()){
+				walkcycle++;
+				if (walkcycle == 4){
+					walkcycle = 0;
+				}
+				anibuild.reset();
+			}				
 		}
+
+		/******************************collision stuff************************************/
 		boolean[] forwards = new boolean[height+1];
 		boolean[] downwards = new boolean[width+1];
 		boolean down = false;
@@ -74,8 +93,15 @@ public class Person extends Lego{
 	public void draw() {
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
-		PImage sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128); 
-		parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
+		if (type.equals("walking")){
+			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
+
+		}else if (type.equals("building")){
+			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+
+		}
 		parent.popMatrix();
 	}
 	
