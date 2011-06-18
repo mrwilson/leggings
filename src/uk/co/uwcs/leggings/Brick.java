@@ -5,15 +5,15 @@ import processing.core.PApplet;
 public class Brick extends Lego {
 	private PApplet parent;
 	private int x,y,height,width;
-	
-	public Brick(PApplet p, int x, int y, int height, int width) {
-		this.parent = p;
+
+	public Brick(PApplet p, int x, int y) {
+		parent = p;
 		this.x = x;
 		this.y = y;
-		this.height = height;
-		this.width = width;
+		this.height = 10;
+		this.width = 200;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -28,6 +28,6 @@ public class Brick extends Lego {
 	}
 
 	public void draw() {
-		
+		parent.rect(x*WIDTH,y*HEIGHT,width*WIDTH,height*HEIGHT);
 	}
 }
