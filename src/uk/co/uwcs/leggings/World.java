@@ -36,6 +36,7 @@ public class World extends Screen {
 
 		//people.add(new Person(parent, 10, 8));
 		people.add(new Person(parent, 12, 8));
+		people.add(new Person(parent, 12, 8, "climber"));
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 

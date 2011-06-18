@@ -13,10 +13,10 @@ public class SplashScreen extends Screen {
 	public void display() {
 		parent.background(0);
 
-		PImage bg = parent.loadImage("./res/images/leggings.png");
-		PImage start = parent.loadImage("./res/images/start1.png");
+		PImage bg = parent.loadImage("../res/images/leggings.png");
+		PImage start = parent.loadImage("../res/images/start1.png");
 		PImage logo = parent.loadImage("http://uwcs.co.uk/static/img/logo.png", "png");
-		PImage exit = parent.loadImage("./res/images/exit1.png");
+		PImage exit = parent.loadImage("../res/images/exit1.png");
 		
 		parent.image(bg, 0, 0, parent.width, parent.height);
 		parent.image(logo, 0, 0);

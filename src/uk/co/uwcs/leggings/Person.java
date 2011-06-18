@@ -13,14 +13,20 @@ public class Person extends Lego{
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
 	private Timer animation = new Timer((float)0.1);
 	private int walkcycle =0;
+	private String type;
 
 	public Person(PApplet p, float x, float y) {
+		this(p, x, y, "default");
+	}
+	
+	public Person(PApplet p, float x, float y, String type) {
 		facing = 1;
 		parent = p;
 		this.x = x*HEIGHT;
 		this.y = y*WIDTH;
 		this.width = 1;
 		this.height = 4;
+		this.type = type;
 	}
 	public int update(Brick[][] collisionMap) {
 		animation.update(1/parent.frameRate);
@@ -55,12 +61,20 @@ public class Person extends Lego{
 				else ahead = true;
 			}
 		}
-		if(!down) {
-			y += 40/parent.frameRate;
+		if(type == "climber") {
+			if(ahead || step) y -= 30/parent.frameRate;
+			else if(!down) y += 40/parent.frameRate;
+			else x += facing*30/parent.frameRate;
 		} else {
-			if(ahead)facing*=-1;
-			else if(step)y-=HEIGHT;
-			x += facing*30/parent.frameRate;
+			if(!down) {
+				y += 40/parent.frameRate;
+			} else {
+				if(ahead) {
+					facing*=-1;
+				}
+				else if(step)y-=HEIGHT;
+				x += facing*30/parent.frameRate;
+			}
 		}
 
 		if(y>=parent.height) {
