@@ -101,4 +101,10 @@ public class World extends Screen {
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
 	}
+
+	public int mousePressed(int x, int y) {
+		return 0;
+		
+	}
+
 }
