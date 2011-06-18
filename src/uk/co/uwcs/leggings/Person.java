@@ -11,6 +11,7 @@ public class Person extends Lego{
 	private int height,width;
 	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
+
 	private Timer animation = new Timer((float)0.1);
 	private int walkcycle =0;
 	private String type;

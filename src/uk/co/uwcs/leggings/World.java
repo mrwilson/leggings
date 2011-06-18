@@ -3,6 +3,7 @@ package uk.co.uwcs.leggings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import processing.core.PApplet;
@@ -18,6 +19,9 @@ public class World extends Screen {
 	PApplet parent;
 	float timeRemaining;
 	Timer creationTimer;
+	int fourblock = 0;
+	int sixblock = 0;
+	int twoblock = 0;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -26,7 +30,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/level1.oel"));
+			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
@@ -64,14 +68,15 @@ public class World extends Screen {
 		}
 		gui = parent.loadImage("../res/images/GUI.png");
 		timeRemaining = 30;
+		Collections.reverse(terrain);
 	}
 
 	public void update()
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				//people.add(peopletoadd.get(0));
-				//peopletoadd.remove(0);
+				people.add(peopletoadd.get(0));
+				peopletoadd.remove(0);
 				creationTimer.reset();
 			}
 		}
@@ -102,4 +107,10 @@ public class World extends Screen {
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
 	}
+
+	public int mousePressed(int x, int y) {
+		return 0;
+		
+	}
+
 }
