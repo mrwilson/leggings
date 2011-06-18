@@ -5,7 +5,7 @@
 		<defaultHeight>600</defaultHeight>
 	</settings>
 	<tilesets>
-		<tileset name="Brick" image="../images/greyblock.png" tileHeight="64" tileWidth="128" />
+		<tileset name="Brick" image="../images/blocks.png" tileHeight="92" tileWidth="128" imageWidth="32" imageHeight="32" />
 	</tilesets>
 	
 	<layers>
