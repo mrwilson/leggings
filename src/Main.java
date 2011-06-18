@@ -1,13 +1,12 @@
 import processing.core.PApplet;
-import uk.co.uwcs.leggings.World;
-
+import uk.co.uwcs.leggings.SplashScreen;
 
 public class Main extends PApplet{
 	
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 12;
 	private static final long serialVersionUID = 1L;
-	public static World world;
+	public static SplashScreen world;
 	private static boolean paused = false;
 	
 	public static void main(String args[]) {
@@ -16,10 +15,11 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
-		world = new World(this);
+		world = new SplashScreen(this);
 		size(800,600);
 		background(0);
 		loop();
+		
 	}
 	
 	public void draw() {
@@ -39,5 +39,9 @@ public class Main extends PApplet{
 		else { 
 			loop();
  		}
+	}
+	
+	public void mouseClicked() {
+		world.mousePressed(mouseX, mouseY);
 	}
 }
