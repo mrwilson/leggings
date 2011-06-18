@@ -18,7 +18,6 @@ public class Level {
 		for(int i = 0; i < levelXML.getChildCount(); i++) {
 			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
 			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
-			System.out.println(x + "," + y);
 			levelList.add(new Brick(p,x,y));
 		}
 	}
@@ -30,13 +29,4 @@ public class Level {
 	public void setLevelList(ArrayList<Brick> levelList) {
 		this.levelList = levelList;
 	}
-	
-	public void printXML() {
-		System.out.println(levelXML.toString());
-		/*for(int i = 0; i < levelXML.getChildCount(); i++) {
-			System.out.println( i + " " + levelXML.getChild(i));
-		}*/
-	}
-
-	
 }
