@@ -8,14 +8,26 @@ import processing.core.PImage;
 public class Brick extends Lego {
 	private PApplet parent;
 	private int x,y,height,width;
+	public boolean collidable;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
+	private String tex;
 
-	public Brick(PApplet p, int x, int y) {
+	public Brick(PApplet p, int x, int y, int width, int height, String tex, boolean collidable) {
 		parent = p;
 		this.x = x;
 		this.y = y;
-		this.height = 1;
-		this.width = 2;
+		this.height = height;
+		this.width = width;
+		this.tex = tex;
+		this.collidable = collidable;
+	}
+
+	public Brick(PApplet p, int x, int y, String tex) {
+		this(p,x,y,2,1,tex,true);
+	}
+
+	public Brick(PApplet p, int x, int y) {
+		this(p, x, y, "green");
 	}
 
 	public int getX() {
@@ -32,7 +44,7 @@ public class Brick extends Lego {
 	}
 
 	public void draw() {
-		parent.image(images.get("default"),x*WIDTH,y*HEIGHT,width*WIDTH,(int)(height*HEIGHT*1.2));
+		parent.image(images.get(tex),x*WIDTH,y*HEIGHT,width*WIDTH,(int)(height*HEIGHT*1.2));
 		//parent.rect(x*WIDTH,y*HEIGHT,width*WIDTH,height*HEIGHT);
 	}
 }

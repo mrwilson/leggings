@@ -11,17 +11,26 @@ public class Person extends Lego{
 	private int height,width;
 	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
+	private Timer animation = new Timer((float)0.1);
+	private int walkcycle =0;
 
 	public Person(PApplet p, float x, float y) {
 		facing = 1;
 		parent = p;
-		this.x = x;
-		this.y = y;
+		this.x = x*HEIGHT;
+		this.y = y*WIDTH;
 		this.width = 1;
 		this.height = 4;
 	}
-	public void update(Brick[][] collisionMap) {
-		
+	public int update(Brick[][] collisionMap) {
+		animation.update(1/parent.frameRate);
+		if (animation.isOver()){
+			walkcycle++;
+			if (walkcycle == 8){
+				walkcycle = 0;
+			}
+			animation.reset();
+		}
 		boolean[] forwards = new boolean[height];
 		boolean[] downwards = new boolean[width];
 		boolean down = false;
@@ -29,7 +38,7 @@ public class Person extends Lego{
 
 		for(int j=0; j<width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
-			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
+			if(collisionMap[(int) (x/WIDTH)+j-(int)(facing*0.5-0.5)][bottom] != null) {
 				downwards[j] = true;
 				down = true;
 			}
@@ -51,12 +60,18 @@ public class Person extends Lego{
 			x += facing*30/parent.frameRate;
 		}
 		
+		if(y>=parent.height) {
+			return 1;
+		}
+		return 0;
+
 	}
 
 	public void draw() {
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
-		parent.image(images.get("default"),facing*x,y+2,facing*width*WIDTH,height*HEIGHT);
+		PImage sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128); 
+		parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 		parent.popMatrix();
 	}
 	

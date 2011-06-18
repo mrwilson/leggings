@@ -1,0 +1,37 @@
+<level>
+  <width>800</width>
+  <height>600</height>
+  <bricks>
+    <green x="176" y="208"/>
+    <green x="240" y="208"/>
+    <green x="272" y="240"/>
+    <green x="304" y="224"/>
+    <green x="368" y="208"/>
+    <green x="368" y="240"/>
+    <green x="464" y="224"/>
+    <yellow x="208" y="208"/>
+    <yellow x="176" y="240"/>
+    <yellow x="272" y="224"/>
+    <yellow x="368" y="224"/>
+    <yellow x="336" y="240"/>
+    <blue x="336" y="224"/>
+    <blue x="304" y="208"/>
+    <red x="176" y="224"/>
+    <red x="208" y="240"/>
+    <red x="304" y="240"/>
+    <red x="336" y="208"/>
+    <red x="400" y="224"/>
+    <red x="496" y="336"/>
+    <blue x="528" y="336"/>
+    <grey x="528" y="320"/>
+    <red x="560" y="336"/>
+    <red x="432" y="224"/>
+    <grey x="272" y="208"/>
+    <grey x="240" y="224"/>
+    <grey x="208" y="224"/>
+    <grey x="240" y="240"/>
+    <grey x="464" y="240"/>
+    <spawn x="176" y="80" count="100" interval="1000"/>
+    <spawn x="416" y="400" count="100" interval="1000"/>
+  </bricks>
+</level>
