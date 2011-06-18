@@ -45,17 +45,19 @@ public class Person extends Lego{
 			}
 		}
 		if(!down) {
-			y += 20/parent.frameRate;
+			y += 40/parent.frameRate;
 		} else {
 			if(ahead)facing*=-1;
-			x += facing*20/parent.frameRate;
+			x += facing*30/parent.frameRate;
 		}
 		
 	}
 
 	public void draw() {
-		parent.image(images.get("default"),x,y+2,width*WIDTH,height*HEIGHT);
-		//parent.rect(x,y,width*WIDTH,height*HEIGHT);
+		parent.pushMatrix(); 
+		parent.scale(facing,1);
+		parent.image(images.get("default"),facing*x,y+2,facing*width*WIDTH,height*HEIGHT);
+		parent.popMatrix();
 	}
 	
 	
