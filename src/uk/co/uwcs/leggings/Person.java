@@ -41,8 +41,12 @@ public class Person extends Lego{
 		for(int j=0; j<=width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
 			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
+				System.out.println(collisionMap[(int) (x/WIDTH)+j][bottom].getType());
 				downwards[j] = true;
 				down = true;
+				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "lava") {
+					return 3;
+				}
 			}
 		}
 
@@ -74,7 +78,7 @@ public class Person extends Lego{
 	public void draw() {
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
-		PImage sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128); 
+		PImage sprite = images.get("sprite").get(walkcycle*54, 0, 54, 128); 
 		parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 		parent.popMatrix();
 	}

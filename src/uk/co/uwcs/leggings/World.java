@@ -30,7 +30,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
+			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
@@ -38,6 +38,7 @@ public class World extends Screen {
 			e.printStackTrace();
 		}
 
+		terrain.add(new Brick(parent, 336/16, 208/16, 2, 1, "red", true, "lava"));
 		//people.add(new Person(parent, 10, 8));
 		people.add(new Person(parent, 12, 8));
 		//people.add(new Person(parent, 24, 8));
@@ -81,10 +82,16 @@ public class World extends Screen {
 		}
 		creationTimer.update(1/parent.frameRate);
 		Iterator<Person> it = people.iterator();
+		ArrayList<Person> peopleRemoval = new ArrayList<Person>();
 		while(it.hasNext())
 		{
-			it.next().update(collisionMap);
+			Person temp = it.next();
+			int i = temp.update(collisionMap);
+			if (i == 3) {
+				peopleRemoval.add(temp);
+			}
 		}
+		people.removeAll(peopleRemoval);
 	}
 
 	public void display() {
