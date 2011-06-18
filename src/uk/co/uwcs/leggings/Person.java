@@ -67,7 +67,7 @@ public class Person extends Lego{
 		}
 		if(type.equals("climber")) {
 			System.out.println("ahead: " + ahead + "; step: " + step + "; ledge: " + ledge);
-			if(ahead || step || ledge) {
+			if(ahead || step || (ledge&&(!down))) {
 				y -= 30/parent.frameRate;
 			} else if(!down) {
 				y += 40/parent.frameRate;
