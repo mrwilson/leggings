@@ -5,7 +5,8 @@ import java.util.HashMap;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Brick extends Lego {
+
+public class Brick extends Lego implements Comparable<Brick> {
 	private PApplet parent;
 	private int x,y,height,width;
 	public boolean collidable;
@@ -22,6 +23,15 @@ public class Brick extends Lego {
 		this.collidable = collidable;
 	}
 
+
+    public int compareTo(Brick n) {
+    	if (n.getY()<y)
+    		return 1;
+    	if (n.getY()>y)
+    		return -1;
+    	else return 0;
+    }
+	
 	public Brick(PApplet p, int x, int y, String tex) {
 		this(p,x,y,2,1,tex,true);
 	}

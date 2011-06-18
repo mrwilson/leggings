@@ -3,6 +3,7 @@ package uk.co.uwcs.leggings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import processing.core.PApplet;
@@ -26,7 +27,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/level1.oel"));
+			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
@@ -34,10 +35,10 @@ public class World extends Screen {
 			e.printStackTrace();
 		}
 
-		people.add(new Person(parent, 30, 8));
-		people.add(new Person(parent, 26, 8));
-		people.add(new Person(parent, 24, 8));
-		people.add(new Person(parent, 32, 8));
+		people.add(new Person(parent, 5, 8));
+//		people.add(new Person(parent, 26, 8));
+//		people.add(new Person(parent, 24, 8));
+//		people.add(new Person(parent, 32, 8));
 
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
@@ -63,6 +64,7 @@ public class World extends Screen {
 		}
 		gui = parent.loadImage("../res/images/GUI.png");
 		timeRemaining = 30;
+		Collections.reverse(terrain);
 	}
 
 	public void update()

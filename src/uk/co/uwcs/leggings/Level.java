@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import processing.core.PApplet;
 import processing.xml.XMLElement;
@@ -31,6 +32,7 @@ public class Level{
 		for (int i = 0 ; i < levelXML.getChildCount();i++){
 			levelPeople.add(new Person(p,levelXML.getChildCount(),levelXML.getChildCount()));
 		}
+		Collections.sort(levelList);
 	}
 
 	public ArrayList<Brick> getLevelList() {
