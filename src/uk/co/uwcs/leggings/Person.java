@@ -17,15 +17,20 @@ public class Person extends Lego{
 	private Timer anibuild = new Timer((float)0.3);
 
 	private int walkcycle =0;
-	private String type = "walking";
+	private String type;
 
 	public Person(PApplet p, float x, float y) {
+		this(p, x, y, "default");
+	}
+	
+	public Person(PApplet p, float x, float y, String type) {
 		facing = 1;
 		parent = p;
 		this.x = x*HEIGHT;
 		this.y = y*WIDTH;
 		this.width = 1;
 		this.height = 4;
+		this.type = type;
 	}
 	public int update(Brick[][] collisionMap) {
 		
@@ -55,32 +60,46 @@ public class Person extends Lego{
 		boolean[] downwards = new boolean[width+1];
 		boolean down = false;
 		boolean step = false;
+		boolean ledge = false;
 		boolean ahead = false;
 
 		for(int j=0; j<=width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
-			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
+			if(collisionMap[(int) Math.floor(x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
 			}
 		}
 
-		for(int i=0; i<height; ++i) {
+		for(int i=0; i<=height; ++i) {
 			int front;
 			if(facing == 1) front = (int) (x/WIDTH + width);
 			else front = (int) (x/WIDTH + width)-1;
 			if(collisionMap[front][(int) (y/HEIGHT)+i] != null) {
 				forwards[i] = true;
-				if(i==height-1)step = true;
+				System.out.println(i+"is coliding");
+				if(i==(height-1))step = true;
+				else if(i==height)ledge = true;
 				else ahead = true;
 			}
 		}
-		if(!down) {
-			y += 40/parent.frameRate;
+		if(type.equals("climber")) {
+			System.out.println("ahead: " + ahead + "; step: " + step + "; ledge: " + ledge);
+			if(ahead || step || ledge) {
+				y -= 30/parent.frameRate;
+			} else if(!down) {
+				y += 40/parent.frameRate;
+			} else {
+				x += facing*30/parent.frameRate;
+			}
 		} else {
-			if(ahead)facing*=-1;
-			else if(step)y-=HEIGHT;
-			x += facing*30/parent.frameRate;
+			if(!down) {
+				y += 40/parent.frameRate;
+			} else {
+				if(ahead)facing*=-1;
+				else if(step)y-=HEIGHT;
+				x += facing*30/parent.frameRate;
+			}
 		}
 
 		if(y>=parent.height) {
