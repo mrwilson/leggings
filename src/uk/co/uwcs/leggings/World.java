@@ -9,7 +9,7 @@ public class World extends Screen {
 
 	ArrayList<Person> people;
 	ArrayList<Brick> terrain;
-	Brick[][] collisionMap = new Brick[100][100];
+	Brick[][] collisionMap = new Brick[1000][1000];
 	PApplet parent;
 		
 //note that a Lego brick is of ratio 6:5
@@ -19,6 +19,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		people.add(new Person(parent, 200, 100));
+		terrain.add(new Brick(parent, 0, 20));
 		Person.images.put("default", parent.loadImage("../res/images/Z0small.jpg"));
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
@@ -45,6 +46,11 @@ public class World extends Screen {
 		while(it.hasNext())
 		{
 			it.next().draw();
+		}
+		Iterator<Brick> itb = terrain.iterator();
+		while(itb.hasNext())
+		{
+			itb.next().draw();
 		}
 	}
 	
