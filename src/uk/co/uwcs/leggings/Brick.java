@@ -10,7 +10,7 @@ public class Brick extends Lego {
 		this.x = x;
 		this.y = y;
 		this.height = 10;
-		this.width = 200;
+		this.width = 20;
 	}
 	public int getX() {
 		return x;

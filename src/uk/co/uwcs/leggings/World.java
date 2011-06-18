@@ -18,8 +18,13 @@ public class World extends Screen {
 		people = new ArrayList<Person>();
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
-		people.add(new Person(parent, 200, 100));
-		terrain.add(new Brick(parent, 0, 20));
+		people.add(new Person(parent, 300, 100));
+		people.add(new Person(parent, 260, 100));
+		people.add(new Person(parent, 240, 100));
+		people.add(new Person(parent, 300, 100));
+		terrain.add(new Brick(parent, 40, 20));
+		terrain.add(new Brick(parent, 20, 15));
+		terrain.add(new Brick(parent, 60, 15));
 		Person.images.put("default", parent.loadImage("../res/images/Z0small.jpg"));
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {

@@ -9,11 +9,11 @@ public class Person extends Lego{
 	private PApplet parent;
 	private float x,y;
 	private int height,width;
-	private boolean facing;
+	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
 
 	public Person(PApplet p, float x, float y) {
-		facing = true;
+		facing = 1;
 		parent = p;
 		this.x = x;
 		this.y = y;
@@ -25,25 +25,30 @@ public class Person extends Lego{
 		boolean[] forwards = new boolean[height];
 		boolean[] downwards = new boolean[width];
 		boolean down = false;
+		boolean ahead = false;
 
 		for(int j=0; j<width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
 			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
-				System.out.println("j: " + j);
 			}
 		}
 
 		for(int i=0; i<height; ++i) {
-			int front = (int) (x/WIDTH + width);
+			int front;
+			if(facing == 1) front = (int) (x/WIDTH + width);
+			else front = (int) (x/WIDTH + width)-1;
 			if(collisionMap[front][(int) (y/HEIGHT)+i] != null) {
 				forwards[i] = true;
-				System.out.println("i: " + i);
+				ahead = true;
 			}
 		}
 		if(!down) {
-			y += 10/parent.frameRate;
+			y += 20/parent.frameRate;
+		} else {
+			if(ahead)facing*=-1;
+			x += facing*20/parent.frameRate;
 		}
 		
 	}
