@@ -31,14 +31,15 @@ public class Person extends Lego{
 			}
 			animation.reset();
 		}
-		boolean[] forwards = new boolean[height];
-		boolean[] downwards = new boolean[width];
+		boolean[] forwards = new boolean[height+1];
+		boolean[] downwards = new boolean[width+1];
 		boolean down = false;
+		boolean step = false;
 		boolean ahead = false;
 
-		for(int j=0; j<width; ++j) {
+		for(int j=0; j<=width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
-			if(collisionMap[(int) (x/WIDTH)+j-(int)(facing*0.5-0.5)][bottom] != null) {
+			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
 			}
@@ -50,16 +51,18 @@ public class Person extends Lego{
 			else front = (int) (x/WIDTH + width)-1;
 			if(collisionMap[front][(int) (y/HEIGHT)+i] != null) {
 				forwards[i] = true;
-				ahead = true;
+				if(i==height-1)step = true;
+				else ahead = true;
 			}
 		}
 		if(!down) {
 			y += 40/parent.frameRate;
 		} else {
 			if(ahead)facing*=-1;
+			else if(step)y-=HEIGHT;
 			x += facing*30/parent.frameRate;
 		}
-		
+
 		if(y>=parent.height) {
 			return 1;
 		}

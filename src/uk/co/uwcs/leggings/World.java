@@ -34,10 +34,10 @@ public class World extends Screen {
 			e.printStackTrace();
 		}
 
-		people.add(new Person(parent, 10, 8));
+		//people.add(new Person(parent, 10, 8));
 		people.add(new Person(parent, 12, 8));
-		people.add(new Person(parent, 24, 8));
-		people.add(new Person(parent, 32, 8));
+		//people.add(new Person(parent, 24, 8));
+		//people.add(new Person(parent, 32, 8));
 
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
@@ -69,8 +69,8 @@ public class World extends Screen {
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				people.add(peopletoadd.get(0));
-				peopletoadd.remove(0);
+				//people.add(peopletoadd.get(0));
+				//peopletoadd.remove(0);
 				creationTimer.reset();
 			}
 		}
