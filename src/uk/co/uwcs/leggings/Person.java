@@ -42,37 +42,43 @@ public class Person extends Lego{
 		boolean[] downwards = new boolean[width+1];
 		boolean down = false;
 		boolean step = false;
+		boolean ledge = false;
 		boolean ahead = false;
 
 		for(int j=0; j<=width; ++j) {
 			int bottom = (int) (y/HEIGHT + height);
-			if(collisionMap[(int) (x/WIDTH)+j][bottom] != null) {
+			if(collisionMap[(int) Math.floor(x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
 			}
 		}
 
-		for(int i=0; i<height; ++i) {
+		for(int i=0; i<=height; ++i) {
 			int front;
 			if(facing == 1) front = (int) (x/WIDTH + width);
 			else front = (int) (x/WIDTH + width)-1;
 			if(collisionMap[front][(int) (y/HEIGHT)+i] != null) {
 				forwards[i] = true;
-				if(i==height-1)step = true;
+				System.out.println(i+"is coliding");
+				if(i==(height-1))step = true;
+				else if(i==height)ledge = true;
 				else ahead = true;
 			}
 		}
-		if(type == "climber") {
-			if(ahead || step) y -= 30/parent.frameRate;
-			else if(!down) y += 40/parent.frameRate;
-			else x += facing*30/parent.frameRate;
+		if(type.equals("climber")) {
+			System.out.println("ahead: " + ahead + "; step: " + step + "; ledge: " + ledge);
+			if(ahead || step || ledge) {
+				y -= 30/parent.frameRate;
+			} else if(!down) {
+				y += 40/parent.frameRate;
+			} else {
+				x += facing*30/parent.frameRate;
+			}
 		} else {
 			if(!down) {
 				y += 40/parent.frameRate;
 			} else {
-				if(ahead) {
-					facing*=-1;
-				}
+				if(ahead)facing*=-1;
 				else if(step)y-=HEIGHT;
 				x += facing*30/parent.frameRate;
 			}

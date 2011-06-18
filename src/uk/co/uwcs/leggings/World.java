@@ -30,7 +30,7 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
+			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
@@ -39,7 +39,7 @@ public class World extends Screen {
 		}
 
 		//people.add(new Person(parent, 10, 8));
-		people.add(new Person(parent, 12, 8));
+		//people.add(new Person(parent, 12, 8));
 		people.add(new Person(parent, 12, 8, "climber"));
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
@@ -75,8 +75,8 @@ public class World extends Screen {
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				people.add(peopletoadd.get(0));
-				peopletoadd.remove(0);
+				//people.add(peopletoadd.get(0));
+				//peopletoadd.remove(0);
 				creationTimer.reset();
 			}
 		}
