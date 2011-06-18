@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -17,8 +15,7 @@ public class World extends Screen {
 	Brick[][] collisionMap = new Brick[1000][1000];
 	PImage background;
 	PApplet parent;
-	Timer timer;
-	int timeRemaining;
+	float timeRemaining;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -85,20 +82,8 @@ public class World extends Screen {
 			}
 		}
 		gui = parent.loadImage("res/images/GUI.png");
-		final Timer timer = new Timer();
-		timeRemaining = 20;
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-            	timeRemaining--;
-                if (timeRemaining < 0) {
-                    timer.cancel();
-                	System.exit(0);
-                }
-            }
-        }, 0, 1000);
-        
-
-	}
+		timeRemaining = 30;
+ 	}
 
 	
 	public void update()
@@ -125,8 +110,9 @@ public class World extends Screen {
 		}
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
-        parent.text(timeRemaining, 620, 480);
+        parent.text((int) timeRemaining, 620, 480);
         parent.fill(0, 102, 153);
+        timeRemaining -= (1/parent.frameRate);
+        
 	}
-	
 }

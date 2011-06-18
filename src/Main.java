@@ -19,7 +19,7 @@ public class Main extends PApplet{
 		world = new World(this);
 		size(800,600);
 		background(0);
-		//loop();
+		loop();
 	}
 	
 	public void draw() {
@@ -33,7 +33,11 @@ public class Main extends PApplet{
 		if ( keyPressed && key == ENTER) {
 			paused = !paused;
 		}
-		if (paused) noLoop(); else loop();
+		if (paused) {
+			noLoop(); 
+		}
+		else { 
+			loop();
+ 		}
 	}
-	
 }
