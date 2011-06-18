@@ -1,6 +1,5 @@
 import processing.core.PApplet;
 import uk.co.uwcs.leggings.Screen;
-import uk.co.uwcs.leggings.SplashScreen;
 import uk.co.uwcs.leggings.World;
 
 public class Main extends PApplet{
@@ -19,7 +18,7 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
-		world = new SplashScreen(this);
+		world = new World(this);
 		size(800,600);
 		background(0);
 		loop();

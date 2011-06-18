@@ -70,6 +70,9 @@ public class Person extends Lego{
 			if(collisionMap[(int) Math.floor(x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
+				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "lava") {
+					return 3;
+				}
 			}
 		}
 		
@@ -139,9 +142,9 @@ public class Person extends Lego{
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
-		}
 		parent.popMatrix();
 	}
 	
 	
+	}
 }
