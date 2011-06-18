@@ -31,5 +31,7 @@
     <grey x="208" y="224"/>
     <grey x="240" y="240"/>
     <grey x="464" y="240"/>
+    <spawn x="176" y="80" count="100" interval="1000"/>
+    <spawn x="416" y="400" count="100" interval="1000"/>
   </bricks>
 </level>

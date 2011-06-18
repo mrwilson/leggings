@@ -18,10 +18,15 @@ public class Level{
 		levelList = new ArrayList<Brick>();
 		levelPeople = new ArrayList<Person>();
 		for(int i = 0; i < levelXML.getChildCount(); i++) {
-			String color = levelXML.getChild(i).getName().toString();
+			String type = levelXML.getChild(i).getName().toString();
 			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString())/16; //divided by 16 due to ogmo grid size
 			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString())/16;
-			levelList.add(new Brick(p,x,y, color));
+			if(type.equals("spawn")) {
+				levelList.add(new Brick(p,x,y,8,6,type,false));
+			}
+			else {
+				levelList.add(new Brick(p,x,y,type));
+			}
 		}
 		for (int i = 0 ; i < levelXML.getChildCount();i++){
 			levelPeople.add(new Person(p,levelXML.getChildCount(),levelXML.getChildCount()));
