@@ -27,54 +27,24 @@ public class World extends Screen {
 		terrain = new ArrayList<Brick>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("./res/oep/NewLevel.xml"));
+			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	
-		people.add(new Person(parent, 300, 100));
-		people.add(new Person(parent, 260, 100));
-		people.add(new Person(parent, 240, 100));
-		people.add(new Person(parent, 300, 100));
-		terrain.add(new Brick(parent, 20, 20));
-		terrain.add(new Brick(parent, 24, 20));
-		terrain.add(new Brick(parent, 28, 20));
-		terrain.add(new Brick(parent, 32, 20));
-		terrain.add(new Brick(parent, 36, 20));
-		terrain.add(new Brick(parent, 40, 20));
-		terrain.add(new Brick(parent, 44, 20));
-		terrain.add(new Brick(parent, 48, 20));
-		terrain.add(new Brick(parent, 52, 20));
-		terrain.add(new Brick(parent, 52, 21));
-		terrain.add(new Brick(parent, 52, 22));
-		terrain.add(new Brick(parent, 52, 23));
-		terrain.add(new Brick(parent, 56, 23));
-		terrain.add(new Brick(parent, 60, 23));
-		terrain.add(new Brick(parent, 64, 23));
-		terrain.add(new Brick(parent, 68, 23));
-		terrain.add(new Brick(parent, 68, 22));
-		terrain.add(new Brick(parent, 68, 21));
-		terrain.add(new Brick(parent, 34, 20));
-		terrain.add(new Brick(parent, 22, 20));
-		terrain.add(new Brick(parent, 26, 20));
-		terrain.add(new Brick(parent, 30, 20));
-		terrain.add(new Brick(parent, 38, 20));
-		terrain.add(new Brick(parent, 42, 20));
-		terrain.add(new Brick(parent, 46, 20));
-		terrain.add(new Brick(parent, 50, 20));
-		terrain.add(new Brick(parent, 54, 20));
-		terrain.add(new Brick(parent, 54, 21));
-		terrain.add(new Brick(parent, 54, 22));
-		terrain.add(new Brick(parent, 54, 23));
-		terrain.add(new Brick(parent, 58, 23));
-		terrain.add(new Brick(parent, 62, 23));
-		terrain.add(new Brick(parent, 66, 23));
-		terrain.add(new Brick(parent, 70, 23));
-		terrain.add(new Brick(parent, 70, 22));
-		terrain.add(new Brick(parent, 70, 21));
+		}
+
+		people.add(new Person(parent, 30, 8));
+		people.add(new Person(parent, 26, 8));
+		people.add(new Person(parent, 24, 8));
+		people.add(new Person(parent, 32, 8));
+
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
-		Brick.images.put("default", parent.loadImage("../res/images/yellowblock.png"));
+		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
+		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
+		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
+		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
+		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
 			Brick currentBrick = it.next();
@@ -84,9 +54,9 @@ public class World extends Screen {
 				}
 			}
 		}
-		gui = parent.loadImage("res/images/GUI.png");
+		gui = parent.loadImage("../res/images/GUI.png");
 		final Timer timer = new Timer();
-		timeRemaining = 20;
+		timeRemaining = 200;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
             	timeRemaining--;

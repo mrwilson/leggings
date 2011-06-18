@@ -15,12 +15,12 @@ public class Person extends Lego{
 	public Person(PApplet p, float x, float y) {
 		facing = 1;
 		parent = p;
-		this.x = x;
-		this.y = y;
+		this.x = x*HEIGHT;
+		this.y = y*WIDTH;
 		this.width = 1;
 		this.height = 4;
 	}
-	public void update(Brick[][] collisionMap) {
+	public int update(Brick[][] collisionMap) {
 		
 		boolean[] forwards = new boolean[height];
 		boolean[] downwards = new boolean[width];
@@ -51,6 +51,10 @@ public class Person extends Lego{
 			x += facing*30/parent.frameRate;
 		}
 		
+		if(y>=parent.height) {
+			return 1;
+		}
+		return 0;
 	}
 
 	public void draw() {

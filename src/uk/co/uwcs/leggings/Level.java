@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.xml.XMLElement;
 
-public class Level {
+public class Level{
 	XMLElement levelXML;
 	ArrayList<Brick> levelList;
 	
@@ -16,9 +16,10 @@ public class Level {
 		levelXML = new XMLElement(new FileReader(file)).getChild("bricks");
 		levelList = new ArrayList<Brick>();
 		for(int i = 0; i < levelXML.getChildCount(); i++) {
-			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
-			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
-			levelList.add(new Brick(p,x,y));
+			String color = levelXML.getChild(i).getName().toString();
+			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString())/16; //divided by 16 due to ogmo grid size
+			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString())/16;
+			levelList.add(new Brick(p,x,y, color));
 		}
 	}
 
