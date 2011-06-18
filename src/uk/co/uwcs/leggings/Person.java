@@ -115,10 +115,6 @@ public class Person extends Lego{
 	public void draw() {
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
-<<<<<<< HEAD
-		PImage sprite = images.get("sprite").get(walkcycle*54, 0, 54, 128); 
-		parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
-=======
 		if (type.equals("walking")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
@@ -127,10 +123,9 @@ public class Person extends Lego{
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
-		}
->>>>>>> 727ae82b5d28e04e2c8c2b768f46170b8a202499
 		parent.popMatrix();
 	}
 	
 	
+	}
 }
