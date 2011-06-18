@@ -1,0 +1,10 @@
+<project>
+	<name>Example Project</name>
+	<settings>
+		<defaultWidth>800</defaultWidth>
+		<defaultHeight>600</defaultHeight>
+	</settings>
+	<layers>
+		<grid name="floors" gridSize="16"/>
+	</layers>
+</project>
