@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class World extends Screen {
 
 	ArrayList<Person> people;
 	ArrayList<Brick> terrain;
 	Brick[][] collisionMap = new Brick[1000][1000];
+	PImage background;
 	PApplet parent;
 		
 //note that a Lego brick is of ratio 6:5
@@ -58,6 +60,7 @@ public class World extends Screen {
 		terrain.add(new Brick(parent, 70, 23));
 		terrain.add(new Brick(parent, 70, 22));
 		terrain.add(new Brick(parent, 70, 21));
+		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
 		Brick.images.put("default", parent.loadImage("../res/images/yellowblock.png"));
 		Iterator<Brick> it = terrain.iterator();
@@ -81,7 +84,8 @@ public class World extends Screen {
 	}
 
 	public void display() {
-
+		parent.image(background, 0, 0, parent.width, parent.height);
+		
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
 		{

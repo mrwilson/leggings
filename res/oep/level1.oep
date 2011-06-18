@@ -3,12 +3,16 @@
 	<settings>
 		<defaultWidth>800</defaultWidth>
 		<defaultHeight>600</defaultHeight>
+		<workingDirectory>../images</workingDirectory>
 	</settings>
-	<tilesets>
-		<tileset name="Brick" image="../images/blocks.png" tileHeight="92" tileWidth="128" imageWidth="32" imageHeight="32" />
-	</tilesets>
-	
+	<objects>
+		<object name="green" image="greenblock.png" width ="32" height="19" originX="0" originY="2" />
+		<object name="grey" image="greyblock.png" width ="32" height="19" originX="0" originY="2" />
+		<object name="yellow" image="yellowblock.png" width ="32" height="19" originX="0" originY="2" />
+		<object name="red" image="redblock.png" width ="32" height="19" originX="0" originY="2" />
+		<object name="blue" image="blueblock.png" width ="32" height="19" originX="0" originY="2" />
+	</objects>
 	<layers>
-		<tiles name="floors" gridSize="16"/>
+		<objects name="bricks" gridSize="16"/>
 	</layers>
 </project>
