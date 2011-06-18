@@ -40,13 +40,15 @@ public class World extends Screen {
 
 		terrain.add(new Brick(parent, 336/16, 208/16, 2, 1, "red", true, "lava"));
 		//people.add(new Person(parent, 10, 8));
-		people.add(new Person(parent, 12, 8));
+		//people.add(new Person(parent, 12, 8));
+		people.add(new Person(parent, 12, 8, "climber"));
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
 		background = parent.loadImage("../res/images/leggings.png");
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
+		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
@@ -75,8 +77,8 @@ public class World extends Screen {
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				people.add(peopletoadd.get(0));
-				peopletoadd.remove(0);
+				//people.add(peopletoadd.get(0));
+				//peopletoadd.remove(0);
 				creationTimer.reset();
 			}
 		}
