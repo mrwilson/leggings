@@ -12,15 +12,21 @@ public class Brick extends Lego implements Comparable<Brick> {
 	public boolean collidable;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
 	private String tex;
+	private String type;
 
 	public Brick(PApplet p, int x, int y, int width, int height, String tex, boolean collidable) {
-		parent = p;
+		this(p,x,y,width,height,tex,collidable,"default");
+	}
+	
+	public Brick(PApplet p, int x, int y, int width, int height, String tex, boolean collidable, String type) {
+		this.parent = p;
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 		this.tex = tex;
 		this.collidable = collidable;
+		this.type = type;
 	}
 
 
@@ -51,6 +57,10 @@ public class Brick extends Lego implements Comparable<Brick> {
 	}
 	public int getWidth() {
 		return width;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 	public void draw() {
