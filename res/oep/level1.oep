@@ -4,7 +4,11 @@
 		<defaultWidth>800</defaultWidth>
 		<defaultHeight>600</defaultHeight>
 	</settings>
+	<tilesets>
+		<tileset name="Brick" image="../images/blocks.png" tileHeight="92" tileWidth="128" imageWidth="32" imageHeight="32" />
+	</tilesets>
+	
 	<layers>
-		<grid name="floors" gridSize="16"/>
+		<tiles name="floors" gridSize="16"/>
 	</layers>
 </project>
