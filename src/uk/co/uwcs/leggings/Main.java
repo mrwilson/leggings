@@ -1,7 +1,5 @@
+package uk.co.uwcs.leggings;
 import processing.core.PApplet;
-import uk.co.uwcs.leggings.Screen;
-import uk.co.uwcs.leggings.SplashScreen;
-import uk.co.uwcs.leggings.World;
 
 public class Main extends PApplet{
 	
@@ -35,10 +33,14 @@ public class Main extends PApplet{
 		}
 	}
 	
+	public void changeScreen(Screen screen) {
+		change = true; nextScreen = screen;
+	}
+	
 	public void mouseClicked() {
 		int action = world.mousePressed(mouseX, mouseY);
 		switch (action) {
-		case (-1): change = true; nextScreen = new World(this, "../res/oep/level1.oel"); break;
+		case (-1): changeScreen(new World(this, "../res/oep/level1.oel")); break;
 		default: break;
 		
 		}

@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import processing.core.PApplet;
 import processing.core.PImage;
 
 public class World extends Screen {
@@ -19,7 +18,7 @@ public class World extends Screen {
 	Button clickedbutton;
 	Brick[][] collisionMap = new Brick[1000][1000];
 	HashMap<String,PImage> backgrounds;
-	PApplet parent;
+	Main parent;
 	float timeRemaining;
 	Timer creationTimer;
 	int fourblock = 0;
@@ -36,11 +35,13 @@ public class World extends Screen {
 	String nextType;
 	boolean paused = false;
 	private int camera = 0;
+	String XMLPath;
 	
 //note that a Lego brick is of ratio 6:5
-	public World(PApplet p, String XMLPath)
+	public World(Main p, String XMLPath)
 	{
 		people = new ArrayList<Person>();
+		this.XMLPath = XMLPath;
 		terrain = new ArrayList<Brick>();
 		backgrounds = new HashMap<String,PImage>();
 		buttons = new ArrayList<Button>();
@@ -221,9 +222,10 @@ public class World extends Screen {
 			parent.image(parent.loadImage("../ref/images/youwin.png"), 0, 0, parent.height, parent.width);
 		}
 		if (timeRemaining <= 0) {
-			System.exit(0);
+			parent.changeScreen(new World(parent,XMLPath));
 		}
 	}
+
 	public int mousePressed(int x, int y) {
 		Iterator<Person> it = people.iterator();
 		while(it.hasNext())
