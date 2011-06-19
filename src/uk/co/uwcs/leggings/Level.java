@@ -25,6 +25,9 @@ public class Level{
 			if(type.equals("spawn")) {
 				levelList.add(new Brick(p,x,y,8,6,type,false));
 			}
+			if(type.equals("exit")) {
+				levelList.add(new Brick(p,x,y,8,6,type,false));
+			}
 			else {
 				levelList.add(new Brick(p,x,y,type));
 			}

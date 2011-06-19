@@ -32,7 +32,7 @@ public class World extends Screen {
 		backgrounds = new HashMap<String,PImage>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
+			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
@@ -61,6 +61,7 @@ public class World extends Screen {
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
 		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
 		
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
