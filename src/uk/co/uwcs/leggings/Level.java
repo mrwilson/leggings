@@ -13,17 +13,23 @@ public class Level{
 	XMLElement levelXML;
 	ArrayList<Brick> levelList;
 	ArrayList<Person> levelPeople;
-	
+	int spawnAmount;
+	int spawnX;
+	int spawnY;
 	public Level(PApplet p, File file) throws FileNotFoundException{
 		levelXML = new XMLElement(new FileReader(file)).getChild("bricks");
 		levelList = new ArrayList<Brick>();
 		levelPeople = new ArrayList<Person>();
+
 		for(int i = 0; i < levelXML.getChildCount(); i++) {
 			String type = levelXML.getChild(i).getName().toString();
 			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString())/16; //divided by 16 due to ogmo grid size
 			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString())/16;
 			if(type.equals("spawn")) {
 				levelList.add(new Brick(p,x,y,8,6,type,false,type));
+				spawnAmount = Integer.parseInt(levelXML.getChild(i).getString("count").toString());
+				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
+				spawnY = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
 			}
 			if(type.equals("exit")) {
 				levelList.add(new Brick(p,x,y,8,6,type,true,type));
@@ -32,10 +38,12 @@ public class Level{
 				levelList.add(new Brick(p,x,y,type));
 			}
 		}
-		for (int i = 0 ; i < levelXML.getChildCount();i++){
-			levelPeople.add(new Person(p,levelXML.getChildCount(),levelXML.getChildCount()));
+		for (int i = 0 ; i < spawnAmount;i++){
+			levelPeople.add(new Person(p,(spawnX/16)+1,spawnY/16));
 		}
 		Collections.sort(levelList);
+		
+		
 	}
 
 	public ArrayList<Brick> getLevelList() {
@@ -50,4 +58,13 @@ public class Level{
 	public void setLevelList(ArrayList<Brick> levelList) {
 		this.levelList = levelList;
 	}
+	
+	public int getSpawnAmount() {
+		return spawnAmount;
+	}
+
+	public void setSpawnAmount(int spawnAmount) {
+		this.spawnAmount = spawnAmount;
+	}
+
 }
