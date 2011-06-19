@@ -177,15 +177,17 @@ public class World extends Screen {
 		timeRemaining -= (1/parent.frameRate);
 		
 		if (timeRemaining <= 0 && (double) rescued/spawnCount <= 0.5) {
-			parent.text("YOU WIN!", 400, 300);
+			parent.background(0);
+			parent.image(parent.loadImage("../ref/images/youwin.png"), 0, 0, parent.height, parent.width);
 		}
 		if (rescued == spawnCount){
-			parent.text("YOU WIN!", 400, 300);
+			parent.background(0);
+			parent.image(parent.loadImage("../ref/images/youwin.png"), 0, 0, parent.height, parent.width);
+		}
 		if (timeRemaining <= 0) {
-		//	System.exit(0);
+			System.exit(0);
 		}
 	}
-}
 	public int mousePressed(int x, int y) {
 		Iterator<Person> it = people.iterator();
 		while(it.hasNext())
