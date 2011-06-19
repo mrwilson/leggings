@@ -62,6 +62,7 @@ public class World extends Screen {
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
 		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
 		
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
