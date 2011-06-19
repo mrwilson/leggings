@@ -26,8 +26,8 @@ public class World extends Screen {
 	int twoblock = 0;
 	private int rescued = 0;
 	private int spawnCount;
-	private String nextType;
-	private boolean paused;
+	String nextType;
+	boolean paused = false;
 	private int camera = 0;
 	
 //note that a Lego brick is of ratio 6:5
@@ -38,6 +38,7 @@ public class World extends Screen {
 		backgrounds = new HashMap<String,PImage>();
 		buttons = new ArrayList<Button>();
 		this.parent = p;
+		nextType = "default";
 		try {
 			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();

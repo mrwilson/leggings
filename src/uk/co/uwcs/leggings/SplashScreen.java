@@ -1,50 +1,56 @@
 package uk.co.uwcs.leggings;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class SplashScreen extends Screen {
 	PApplet parent;
+	ArrayList<Button> buttons;
 
 	public SplashScreen(PApplet parent) {
 		this.parent = parent;
+		buttons = new ArrayList<Button>();
+		buttons.add(new Button(parent, "../res/images/start1.png", 10, 400, 361, 106, 1));
+		buttons.add(new Button(parent, "../res/images/exit1.png", 375, 400, 361, 106, 0));
 	}
 
 	public void display() {
 		parent.background(0);
 
 		PImage bg = parent.loadImage("../res/images/leggings.png");
-		PImage start = parent.loadImage("../res/images/start1.png");
 		//PImage logo = parent.loadImage("http://uwcs.co.uk/static/img/logo.png", "png");
-		PImage exit = parent.loadImage("../res/images/exit1.png");
 		
 		parent.image(bg, 0, 0, parent.width, parent.height);
-		//parent.image(logo, 0, 0);
-		parent.image(start, 10, 400);
-		parent.image(exit, 375, 400);
+		Iterator<Button> it = buttons.iterator();
+		while(it.hasNext()) {
+			it.next().draw();
+		}
+
 		
 	}
 
 	public void update() {
+
+		
 	}
 	
 	public int mousePressed(int mouseX, int mouseY) {
-		if (10 <= mouseX && 
-			mouseX <= 376 &&
-			400 <= mouseY &&
-			mouseY <= 516) {
-			return 1;
-			
+		Iterator<Button> it = buttons.iterator();
+		while( it.hasNext()) {
+			Button temp = it.next();
+			if (temp.isClicked(mouseX, mouseY)) {
+				switch(temp.getFlag()) {
+				case 1 : return -1; 
+				case 0 : System.exit(0); break;
+				default : break;
+				
+				}
+			}
 		}
-		if (375 <= mouseX && 
-				mouseX <= 736 &&
-				400 <= mouseY &&
-				mouseY <= 516) {
-			System.exit(0);
-			return 0;
-			
-		}
-		return 2;
+	return 0;
 	}
 	
 }
