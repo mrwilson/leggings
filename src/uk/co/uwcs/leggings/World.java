@@ -55,7 +55,13 @@ public class World extends Screen {
 			rescueAmount = level.getRescueAmount();
 			nextLevel = level.getNextlevel();
 			timeRemaining = level.getTime();
-			
+			fourblock = level.getFourblock();
+			sixblock = level.getSixblock();
+			twoblock = level.getTwoblock();
+			diggers = level.getDiggers();
+			climbers = level.getClimbers();
+			umberellas = level.getUmbrellas();
+			hazmats = level.getHazmats();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

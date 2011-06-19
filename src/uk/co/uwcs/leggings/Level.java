@@ -18,13 +18,26 @@ public class Level{
 	int spawnY;
 	int rescueAmount;
 	int time;
+	int diggers;
+	int climbers;
+	int umbrellas;
+	int hazmats;
+	int twoblock;
+	int fourblock;
+	int sixblock;
 	String nextlevel;
 	public Level(PApplet p, File file) throws FileNotFoundException{
 		levelXML = new XMLElement(new FileReader(file));
 		nextlevel = levelXML.getString("nextLevel");
 		time = Integer.parseInt(levelXML.getString("time"));
 		rescueAmount = Integer.parseInt(levelXML.getString("save"));
-		
+		diggers= Integer.parseInt(levelXML.getString("diggers"));
+		climbers= Integer.parseInt(levelXML.getString("climbers"));
+		umbrellas= Integer.parseInt(levelXML.getString("umbrellas"));
+		hazmats= Integer.parseInt(levelXML.getString("hazmats"));
+		twoblock= Integer.parseInt(levelXML.getString("twoblock"));
+		fourblock= Integer.parseInt(levelXML.getString("fourblock"));
+		sixblock= Integer.parseInt(levelXML.getString("sixblock"));
 		levelXML = levelXML.getChild("bricks");
 		levelList = new ArrayList<Brick>();
 		levelPeople = new ArrayList<Person>();
@@ -89,5 +102,35 @@ public class Level{
 	public String getNextlevel() {
 		return nextlevel;
 	}
+
+	public int getDiggers() {
+		return diggers;
+	}
+
+	public int getClimbers() {
+		return climbers;
+	}
+
+	public int getUmbrellas() {
+		return umbrellas;
+	}
+
+	public int getHazmats() {
+		return hazmats;
+	}
+
+	public int getTwoblock() {
+		return twoblock;
+	}
+
+	public int getFourblock() {
+		return fourblock;
+	}
+
+	public int getSixblock() {
+		return sixblock;
+	}
+	
+
 	
 }
