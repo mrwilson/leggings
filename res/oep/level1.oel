@@ -1,4 +1,4 @@
-<level nextLevel="nextLevel.oel" time="60" save="10" diggers="1" climbers="3" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
+<level nextLevel="nextLevel.oel" time="60" save="10" diggers="1" umbrellas="1" climbers="3" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
   <width>800</width>
   <height>600</height>
   <bricks>
