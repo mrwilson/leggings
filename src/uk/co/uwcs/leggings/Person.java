@@ -204,7 +204,7 @@ public class Person extends Lego{
 
 		}else if (type.equals("building")){
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH),height*HEIGHT);
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 		}
 		parent.popMatrix();
 	
