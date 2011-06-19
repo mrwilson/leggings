@@ -257,9 +257,8 @@ public class World extends Screen {
 			}
 		}
 		return 0;
-		
 	}
-	
+
 	public void pause() {
 		paused = !paused;
 		if (paused) {
@@ -269,5 +268,4 @@ public class World extends Screen {
 			parent.loop();
  		}
 	}
-
 }
