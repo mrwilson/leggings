@@ -16,10 +16,11 @@ public class Person extends Lego{
 	private int tobuild = 0; 
 	private Timer animation = new Timer((float)0.1);
 	private Timer anibuild = new Timer((float)0.3);
+	private Timer aniclimb = new Timer((float)0.2);
 	private Timer build = new Timer((float)0.6);
 	private boolean falling;
 
-	private int walkcycle =0;
+	private int walkcycle,climbcycle =0;
 	private String type;
 	
 	Boolean climbing = false;
@@ -40,7 +41,17 @@ public class Person extends Lego{
 	public int update(Brick[][] collisionMap,ArrayList<Brick> terrain) {
 		
 		/******************************animation stuff*************************************/
-		if (type.equals("walking")||type.equals("climber")){
+			
+		if(climbing){
+			aniclimb.update(1/parent.frameRate);
+			if (aniclimb.isOver()){
+				climbcycle++;
+				if (climbcycle == 4){
+					climbcycle = 0;
+				}
+				aniclimb.reset();
+			}				
+		}else if (type.equals("walking")||type.equals("climber")){
 			animation.update(1/parent.frameRate);
 			if (animation.isOver()){
 				walkcycle++;
@@ -48,7 +59,7 @@ public class Person extends Lego{
 					walkcycle = 0;
 				}
 				animation.reset();
-			}	
+			}
 		}else if(type.equals("building")){
 			anibuild.update(1/parent.frameRate);
 			if (anibuild.isOver()){
@@ -57,7 +68,7 @@ public class Person extends Lego{
 					type = "walking";
 				}
 				anibuild.reset();
-			}				
+			}
 		}
 
 		/******************************collision stuff************************************/
@@ -170,18 +181,19 @@ public class Person extends Lego{
 		if (falling){
 			sprite =images.get("building").get(105, 0, 105, 128);	
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
-	
-		}else if (type.equals("walking")){
-			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 
-		}else if (type.equals("climber")){
+		}else if (climbing){
+			System.out.println(climbcycle);
+			sprite =images.get("climbing").get(climbcycle*93, 0, 93, 128);
+			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
+
+		}else if (type.equals("walking")||type.equals("climber")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 
 		}else if (type.equals("building")){
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH),height*HEIGHT);
 		}
 		parent.popMatrix();
 	
