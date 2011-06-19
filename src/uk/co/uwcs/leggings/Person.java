@@ -27,7 +27,7 @@ public class Person extends Lego{
 	Boolean climbing = false;
 	
 	public Person(PApplet p, float x, float y) {
-		this(p, x, y, "walking");
+		this(p, x, y, "climber");
 	}
 	
 	public Person(PApplet p, float x, float y, String type) {
