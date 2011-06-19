@@ -196,11 +196,12 @@ public class Person extends Lego{
 					brick = collisionMap[(int)(x/WIDTH)+(width)][(int)(y/HEIGHT)+height];
 				else
 					brick = collisionMap[(int)(x/WIDTH)+(width)][(int)(y/HEIGHT)+height];
-				System.out.println(brick.getX() + ", " + brick.getY());
-				for(int i=0; i<brick.getWidth(); ++i) {
-					collisionMap[(int)(brick.getX())+i][(int)(brick.getY())] = null;
+				if(brick != null){
+					for(int i=0; i<brick.getWidth(); ++i) {
+						collisionMap[(int)(brick.getX())+i][(int)(brick.getY())] = null;
+					}
+					terrain.remove(brick);
 				}
-				terrain.remove(brick);
 				
 			}
 		}else {
@@ -269,9 +270,9 @@ public class Person extends Lego{
 			System.out.println(digcycle);
 			sprite =images.get("digging").get(0, 0, 93, 128);
 			if (facing==1){
-				parent.image(sprite,facing*x-20,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
+				parent.image(sprite,facing*x,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
 			}else {
-				parent.image(sprite,facing*x+10,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
+				parent.image(sprite,facing*x,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
 			}
 		}else if (type.equals("walking")||type.equals("climber")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
