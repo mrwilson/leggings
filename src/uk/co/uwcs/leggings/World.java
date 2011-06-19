@@ -24,6 +24,7 @@ public class World extends Screen {
 	int sixblock = 0;
 	int twoblock = 0;
 	private int rescued = 0;
+	private int spawnCount;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -37,6 +38,7 @@ public class World extends Screen {
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
+			spawnCount = level.getSpawnAmount();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +46,7 @@ public class World extends Screen {
 		//terrain.add(new Brick(parent, 336/16, 208/16, 2, 1, "red", true, "lava"));
 		//people.add(new Person(parent, 10, 8));
 		//people.add(new Person(parent, 12, 8));
-		people.add(new Person(parent, 12, 8, "climber"));
+		//people.add(new Person(parent, 12, 8, "climber"));
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
@@ -85,9 +87,9 @@ public class World extends Screen {
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				//people.add(peopletoadd.get(0));
-				//peopletoadd.remove(0);
-				creationTimer.reset();
+					spawnCount--;
+					people.add(peopletoadd.remove(0));
+					creationTimer.reset();
 			}
 		}
 		creationTimer.update(1/parent.frameRate);
