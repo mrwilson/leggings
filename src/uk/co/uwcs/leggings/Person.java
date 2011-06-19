@@ -131,11 +131,19 @@ public class Person extends Lego{
 		
 			build.update(1/parent.frameRate);
 			if (build.isOver()){
+				Brick brick; 
 				build.reset();
-				Brick brick = new Brick(parent, (int)(x/WIDTH)+width, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+				if (facing==1)
+					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+				else
+					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);				
 				terrain.add(brick);
 				for(int i = 0 ; i < tobuild ; i ++){
-					collisionMap[(int)(x/WIDTH)+width+i*facing][ (int)(y/HEIGHT)+height-1] = brick;
+					if (facing==1)
+						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
+					else
+						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
+										
 				}
 				
 			}
@@ -204,7 +212,11 @@ public class Person extends Lego{
 
 		}else if (type.equals("building")){
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			if (facing==1){
+				parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);			
+			}else {
+				parent.image(sprite,facing*x+10,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			}
 		}
 		parent.popMatrix();
 	

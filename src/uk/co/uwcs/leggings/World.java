@@ -32,7 +32,7 @@ public class World extends Screen {
 		backgrounds = new HashMap<String,PImage>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/level1.oel"));
+			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
