@@ -19,9 +19,10 @@ public class Person extends Lego{
 	private Timer aniclimb = new Timer((float)0.2);
 	private Timer anifall = new Timer((float)0.2);
 	private Timer build = new Timer((float)0.6);
+	private Timer dig = new Timer((float)0.6);
 	private boolean falling;
 
-	private int walkcycle,climbcycle,fallcycle =0;
+	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
 	
 	Boolean climbing = false;
@@ -94,10 +95,10 @@ public class Person extends Lego{
 			if(collisionMap[(int) Math.floor(x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
-				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "lava") {
+				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType().equals("lava")) {
 					return 3;
 				}
-				if(collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "exit") {
+				if(collisionMap[(int) (x/WIDTH)+j][bottom].getType().equals("exit")) {
 					return 4;
 				}
 			}
@@ -114,7 +115,8 @@ public class Person extends Lego{
 				if(i==(height-1))step = true;
 				else if(i==height)ledge = true;
 				else ahead = true;
-				if( collisionMap[front][(int) (y/HEIGHT)+i].getType() == "exit" ) {
+				if( collisionMap[front][(int) (y/HEIGHT)+i].getType().equals("exit")) {
+					System.out.println("exit");
 					return 4;
 				}
 			}
@@ -144,6 +146,26 @@ public class Person extends Lego{
 				x += facing*30/parent.frameRate;
 			}
 		}else if(type.equals("building")) {
+			
+			build.update(1/parent.frameRate);
+			if (build.isOver()){
+				Brick brick; 
+				build.reset();
+				if (facing==1)
+					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+				else
+					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);				
+				terrain.add(brick);
+				for(int i = 0 ; i < tobuild ; i ++){
+					if (facing==1)
+						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
+					else
+						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
+
+				}
+				
+			}
+		}else if(type.equals("digging")) {
 		
 			build.update(1/parent.frameRate);
 			if (build.isOver()){
@@ -159,7 +181,7 @@ public class Person extends Lego{
 						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
 					else
 						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
-										
+
 				}
 				
 			}
@@ -176,7 +198,7 @@ public class Person extends Lego{
 		}
 
 		if(y>=parent.height) {
-			return 1;
+			return 3;
 		}
 		return 0;
 
@@ -222,6 +244,11 @@ public class Person extends Lego{
 			sprite =images.get("climbing").get(climbcycle*93, 0, 93, 128);
 			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
+		}else if (type.equals("digging")){
+			System.out.println(digcycle);
+			sprite =images.get("digging").get(0, 0, 93, 128);
+			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
+
 		}else if (type.equals("walking")||type.equals("climber")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
@@ -245,6 +272,11 @@ public class Person extends Lego{
 	public void build(int x){
 		type = "building";
 		tobuild = x;
+		walkcycle = 0;
+	}
+	
+	public void dig(){
+		type = "digging";
 		walkcycle = 0;
 	}
 	
