@@ -50,6 +50,7 @@ public class World extends Screen {
 			spawnCount = level.getSpawnAmount();
 			rescueAmount = level.getRescueAmount();
 			nextLevel = level.getNextlevel();
+			timeRemaining = level.getTime();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -118,7 +119,6 @@ public class World extends Screen {
 			}
 		}
 		gui = parent.loadImage("../res/images/GUI.png");
-		timeRemaining = 120;
 		Collections.reverse(terrain);
 		System.out.println(spawnCount);
 	}
