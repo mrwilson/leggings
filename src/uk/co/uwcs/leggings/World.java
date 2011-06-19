@@ -55,6 +55,7 @@ public class World extends Screen {
 		backgrounds.put("medium", parent.loadImage("../res/images/mediumbackground.png"));
 		backgrounds.put("hard", parent.loadImage("../res/images/hardbackground.png"));
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
+		Person.images.put("hazmat", parent.loadImage("../res/images/hazmat.png"));
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
@@ -156,15 +157,14 @@ public class World extends Screen {
 						}		
 						if (free)
 							man.build(2);
-					}
-						
+					}		
 				} 
 			}
 
-			System.out.println("x: "+ x +" y: "+y);
-			System.out.println("x: "+ man.getX() +" y: "+man.getY());
 
 		}
+		System.out.println("x: "+ x +" y: "+y);
+
 		return 0;
 		
 	}
