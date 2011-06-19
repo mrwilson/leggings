@@ -1,5 +1,6 @@
 package uk.co.uwcs.leggings;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import processing.core.PApplet;
@@ -12,9 +13,10 @@ public class Person extends Lego{
 	private int facing;
 	static HashMap<String,PImage> images = new HashMap<String, PImage>();
 	private PImage sprite;
-
+	private int tobuild = 0; 
 	private Timer animation = new Timer((float)0.1);
 	private Timer anibuild = new Timer((float)0.3);
+	private Timer build = new Timer((float)0.6);
 
 	private int walkcycle =0;
 	private String type;
@@ -34,7 +36,7 @@ public class Person extends Lego{
 		this.height = 4;
 		this.type = type;
 	}
-	public int update(Brick[][] collisionMap) {
+	public int update(Brick[][] collisionMap,ArrayList<Brick> terrain) {
 		
 		/******************************animation stuff*************************************/
 		if (type.equals("walking")||type.equals("climber")){
@@ -51,7 +53,7 @@ public class Person extends Lego{
 			if (anibuild.isOver()){
 				walkcycle++;
 				if (walkcycle == 4){
-					walkcycle = 0;
+					type = "walking";
 				}
 				anibuild.reset();
 			}				
@@ -92,25 +94,31 @@ public class Person extends Lego{
 		if(type.equals("climber")) {
 //			System.out.println("ahead: " + ahead + "; step: " + step + "; ledge: " + ledge);
 			if(ahead){
-				System.out.println("1");
 				y -= 30/parent.frameRate;
 				climbing=true;
 			}else if (step && climbing){
 				y -= 30/parent.frameRate;		
-			} else if (ledge && climbing ){
-				System.out.println("2");
+			} else if (ledge && climbing && !step){
+				climbing = false;
+				y-=HEIGHT;
+			}else if (ledge && climbing ){
 				y -= 30/parent.frameRate;
 			}else if(!down) {
-				System.out.println("3");
 				y += 40/parent.frameRate;
 			}else if (step){
 				y-=HEIGHT;
 			}else {
 				climbing = false;
-				System.out.println("4");
 				x += facing*30/parent.frameRate;
 			}
-		} else {
+		}else if(type.equals("buiding")) {
+			if (build.isOver()){
+				build.reset();
+				terrain.add(new Brick(parent, (int)(x/WIDTH)+width, (int)(y/HEIGHT)+height, tobuild, 1, "green", true));
+				
+			}
+		}else {
+		
 			if(!down) {
 				y += 40/parent.frameRate;
 			} else {
@@ -125,6 +133,22 @@ public class Person extends Lego{
 		}
 		return 0;
 
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
 	}
 
 	public void draw() {
@@ -144,7 +168,16 @@ public class Person extends Lego{
 		}
 		parent.popMatrix();
 	
-	
-	
 	}
+
+	public void changeType(String t){
+		type = t;
+	}
+	
+	public void build(int x){
+		type = "building";
+		tobuild = x;
+		walkcycle = 0;
+	}
+	
 }

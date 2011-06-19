@@ -93,7 +93,7 @@ public class World extends Screen {
 		while(it.hasNext())
 		{
 			Person temp = it.next();
-			int i = temp.update(collisionMap);
+			int i = temp.update(collisionMap,terrain);
 			if (i == 3) {
 				peopleRemoval.add(temp);
 			}
@@ -122,6 +122,21 @@ public class World extends Screen {
 	}
 
 	public int mousePressed(int x, int y) {
+		Iterator<Person> it = people.iterator();
+		while(it.hasNext())
+		{
+			Person man = it.next();
+			if (man.getX() <= x && man.getX() >= x -15 ){
+				if (man.getY() <= y && man.getY() >= y - 48 ){
+					System.out.println("COLLIDE");
+					man.build(2);
+				} 
+			}
+
+			System.out.println("x: "+ x +" y: "+y);
+			System.out.println("x: "+ man.getX() +" y: "+man.getY());
+
+		}
 		return 0;
 		
 	}
