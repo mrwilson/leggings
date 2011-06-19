@@ -23,6 +23,8 @@ public class Person extends Lego{
 	private Timer dig = new Timer((float)0.6);
 	private boolean falling;
 	private int fallingcounter = 0; 
+	private boolean umbrealla= false;
+	private boolean climber= false;
 
 	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
@@ -46,7 +48,7 @@ public class Person extends Lego{
 		if (falling){
 			fallingcounter++;
 		}else{
-			if (fallingcounter > 100){
+			if (fallingcounter > 100 && !umbrealla){
 				return 3;
 			}
 			fallingcounter =0;
@@ -73,7 +75,7 @@ public class Person extends Lego{
 				}
 				anifall.reset();
 			}	
-		}else if (type.equals("walking")||type.equals("climber")||type.equals("hazmat")){
+		}else if (type.equals("walking")||climber||type.equals("hazmat")){
 			animation.update(1/parent.frameRate);
 			if (animation.isOver()){
 				walkcycle++;
@@ -143,7 +145,7 @@ public class Person extends Lego{
 		if(falling){
 			if (down) falling = false;
 			else y += 40/parent.frameRate;
-		}else if(type.equals("climber")) {
+		}else if(climber) {
 			if(ahead){
 				y -= 30/parent.frameRate;
 				climbing=true;
@@ -259,11 +261,19 @@ public class Person extends Lego{
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
 		if (falling){
-			sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
-			if (facing==1){
-				parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);			
-			}else {
-				parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			if (umbrealla){
+				sprite =images.get("umbrella");	
+				if (facing == 1)
+					parent.image(sprite,facing*x,y-15,(int)(facing*width*WIDTH*3),(int)(height*HEIGHT*1.2));			
+				else
+					parent.image(sprite,facing*x+20,y-15,(int)(facing*width*WIDTH*3),(int)(height*HEIGHT*1.2));						
+			}else{
+				sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
+				if (facing==1){
+					parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*2.5),height*HEIGHT);			
+				}else {
+					parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+				}
 			}
 		}else if (climbing){
 			System.out.println(climbcycle);
@@ -278,7 +288,7 @@ public class Person extends Lego{
 			}else {
 				parent.image(sprite,facing*x,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
 			}
-		}else if (type.equals("walking")||type.equals("climber")){
+		}else if (type.equals("walking")||climber){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 		}else if (type.equals("building")){
@@ -311,4 +321,14 @@ public class Person extends Lego{
 		walkcycle = 0;
 	}
 	
+	public void giveUmbrella(){
+		umbrealla = true;
+	}
+	
+	public void makeClimber(){
+		climber = true;
+	}
+
 }
+
+
