@@ -17,6 +17,7 @@ public class Person extends Lego{
 	private Timer animation = new Timer((float)0.1);
 	private Timer anibuild = new Timer((float)0.3);
 	private Timer build = new Timer((float)0.6);
+	private boolean falling;
 
 	private int walkcycle =0;
 	private String type;
@@ -91,8 +92,12 @@ public class Person extends Lego{
 				else ahead = true;
 			}
 		}
-		if(type.equals("climber")) {
-//			System.out.println("ahead: " + ahead + "; step: " + step + "; ledge: " + ledge);
+		
+		if(falling){
+			if (down) falling = false;
+			else y += 40/parent.frameRate;
+			System.out.println("UHIUGIUGIUGBIUG");
+		}else if(type.equals("climber")) {
 			if(ahead){
 				y -= 30/parent.frameRate;
 				climbing=true;
@@ -105,22 +110,30 @@ public class Person extends Lego{
 				y -= 30/parent.frameRate;
 			}else if(!down) {
 				y += 40/parent.frameRate;
+				falling = true;
 			}else if (step){
 				y-=HEIGHT;
 			}else {
 				climbing = false;
 				x += facing*30/parent.frameRate;
 			}
-		}else if(type.equals("buiding")) {
+		}else if(type.equals("building")) {
+		
+			build.update(1/parent.frameRate);
 			if (build.isOver()){
 				build.reset();
-				terrain.add(new Brick(parent, (int)(x/WIDTH)+width, (int)(y/HEIGHT)+height, tobuild, 1, "green", true));
+				Brick brick = new Brick(parent, (int)(x/WIDTH)+width, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+				terrain.add(brick);
+				for(int i = 0 ; i < tobuild ; i ++){
+					collisionMap[(int)(x/WIDTH)+width+i][ (int)(y/HEIGHT)+height-1] = brick;
+				}
 				
 			}
 		}else {
-		
 			if(!down) {
-				y += 40/parent.frameRate;
+				y += 40/parent.frameRate;			
+
+				falling = true;
 			} else {
 				if(ahead)facing*=-1;
 				else if(step)y-=HEIGHT;
@@ -154,7 +167,11 @@ public class Person extends Lego{
 	public void draw() {
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
-		if (type.equals("walking")){
+		if (falling){
+			sprite =images.get("building").get(105, 0, 105, 128);	
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+	
+		}else if (type.equals("walking")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 
