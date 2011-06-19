@@ -34,17 +34,7 @@ public class Main extends PApplet{
 		}
 	}
 	
-	public void keyPressed() {
-		if ( keyPressed && key == ENTER) {
-			paused = !paused;
-		}
-		if (paused) {
-			noLoop(); 
-		}
-		else { 
-			loop();
- 		}
-	}
+
 	
 	public void mouseClicked() {
 		int action = world.mousePressed(mouseX, mouseY);

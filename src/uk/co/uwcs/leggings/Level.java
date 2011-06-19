@@ -30,6 +30,7 @@ public class Level{
 				spawnAmount = Integer.parseInt(levelXML.getChild(i).getString("count").toString());
 				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
 				spawnY = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
+				System.out.println(spawnAmount + " " + spawnX + " " + spawnY);
 			}
 			if(type.equals("exit")) {
 				levelList.add(new Brick(p,x,y,8,6,type,true,type));
@@ -40,6 +41,7 @@ public class Level{
 		}
 		for (int i = 0 ; i < spawnAmount;i++){
 			levelPeople.add(new Person(p,(spawnX/16)+1,spawnY/16));
+			
 		}
 		Collections.sort(levelList);
 		
