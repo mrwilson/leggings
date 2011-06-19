@@ -74,6 +74,8 @@ public class World extends Screen {
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
 		Person.images.put("digging", parent.loadImage("../res/images/digger.png"));
+		Person.images.put("umbrella", parent.loadImage("../res/images/umbrella.png"));
+
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
 
