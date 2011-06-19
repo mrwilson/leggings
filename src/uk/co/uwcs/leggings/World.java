@@ -25,6 +25,10 @@ public class World extends Screen {
 	int fourblock = 0;
 	int sixblock = 0;
 	int twoblock = 0;
+	int diggers = 0;
+	int climbers = 0;
+	int umberellas = 0;
+	int hazmats = 0;
 	private int rescued = 0;
 	private int spawnCount;
 	String nextType;
@@ -60,11 +64,11 @@ public class World extends Screen {
 		buttons.add(new Button(parent, "../res/images/digger.png", 400, 440, 48, 64, 8));
 		buttons.add(new Button(parent, "../res/images/digger.png", 400-48, 440, 48, 64, 3));
 		buttons.add(new Button(parent, "../res/images/hazfaceon.png", 400-48*2, 440, 48, 64, 2));
-		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*3, 440, 48, 64, 1));
-		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*4, 440, 48, 64, 5));
-		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*5, 440, 48, 64, 6));
-		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*6, 440, 48, 64, 7));
-		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*7, 440, 48, 64, 9));
+		buttons.add(new Button(parent, "../res/images/frontonclimber.png", 400-48*3, 440, 48, 64, 1));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*4, 440, 48, 64, 5));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*5, 440, 48, 64, 6));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*6, 440, 48, 64, 7));
+		buttons.add(new Button(parent, "../res/images/frontonumbrella.png", 400-48*7, 440, 48, 64, 9));
 		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*8, 440, 48, 64, 7));
 		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
@@ -172,7 +176,7 @@ public class World extends Screen {
 				temp.draw(2);
 
 		}
-		
+		parent.text(twoblock,400-48*4+24, 440 +60);		
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
@@ -196,19 +200,49 @@ public class World extends Screen {
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
 					if (nextType.equals("hazmat")){
-						man.changeType(nextType);
+						if (hazmats >0){
+							man.changeType(nextType);
+							hazmats--;
+						}
 					}else if (nextType.equals("climber")){
-						man.makeClimber();
+						if (climbers > 0){
+							man.makeClimber();
+							climbers--;
+						}
 					}else if (nextType.equals("digger")){
-						man.dig();
+						if (diggers>0){
+							if (collisionMap[(int)(man.getX()/10)][(int)(man.getY()/12+4)]!=null){
+								Brick b = collisionMap[(int)(man.getX()/10)][(int)(man.getY()/12+4)];
+								if (b.getWidth() ==2)
+									twoblock++;
+								else if (b.getWidth() ==4)
+									fourblock++;
+								else if (b.getWidth() ==6)
+									sixblock++;
+								man.dig();
+								diggers--;
+							}
+						}
 					}else if (nextType.equals("umbrella")){
-						man.giveUmbrella();
+						if (umberellas>0){
+							man.giveUmbrella();
+							umberellas--;
+						}
 					}else if (nextType.equals("2block")){
-						man.build(2);
+						if (twoblock>0){
+							man.build(2);
+							twoblock--;
+						}
 					}else if (nextType.equals("4block")){
-						man.build(4);
+						if (fourblock>0){
+							man.build(4);
+							fourblock--;
+						}
 					}else if (nextType.equals("6block")){
-						man.build(6);
+						if (sixblock>0){
+							man.build(6);
+							sixblock--;
+						}
 					}
 					/*boolean free = true;
 					if (man.getFacing() == 1){
