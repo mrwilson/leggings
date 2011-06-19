@@ -25,6 +25,7 @@ public class World extends Screen {
 	int twoblock = 0;
 	private int rescued = 0;
 	private int spawnCount;
+	private int camera = 0;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -115,7 +116,8 @@ public class World extends Screen {
 
 	public void display() {
 		parent.image(backgrounds.get("easy"), 0, 0, parent.width, parent.height);
-		
+		parent.pushMatrix();
+		parent.translate(camera, 0);
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
 		{
@@ -126,6 +128,7 @@ public class World extends Screen {
 		{
 			it.next().draw();
 		}
+		parent.popMatrix();
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
@@ -133,7 +136,7 @@ public class World extends Screen {
 		timeRemaining -= (1/parent.frameRate);
 		
 		if (timeRemaining <= 0) {
-			System.exit(0);
+		//	System.exit(0);
 		}
 	}
 
