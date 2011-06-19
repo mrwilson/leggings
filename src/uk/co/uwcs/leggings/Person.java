@@ -131,12 +131,10 @@ public class Person extends Lego{
 		for(int i=0; i<=height; ++i) {
 			if(collisionMap[front][(int) (y/HEIGHT)+i] != null) {
 				forwards[i] = true;
-//				System.out.println(i+"is coliding");
 				if(i==(height-1))step = true;
 				else if(i==height)ledge = true;
 				else ahead = true;
 				if( collisionMap[front][(int) (y/HEIGHT)+i].getType().equals("exit")) {
-					System.out.println("exit");
 					return 4;
 				}
 			}
