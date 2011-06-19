@@ -23,6 +23,8 @@ public class World extends Screen {
 	int fourblock = 0;
 	int sixblock = 0;
 	int twoblock = 0;
+	private int rescued = 0;
+	private int spawnCount;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -32,10 +34,11 @@ public class World extends Screen {
 		backgrounds = new HashMap<String,PImage>();
 		this.parent = p;
 		try {
-			Level level = new Level(parent, new File("../res/oep/testLevel.oel"));
+			Level level = new Level(parent, new File("../res/oep/level1.oel"));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
+			spawnCount = level.getSpawnAmount();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +46,7 @@ public class World extends Screen {
 		//terrain.add(new Brick(parent, 336/16, 208/16, 2, 1, "red", true, "lava"));
 		//people.add(new Person(parent, 10, 8));
 		//people.add(new Person(parent, 12, 8));
-		people.add(new Person(parent, 12, 8, "climber"));
+		//people.add(new Person(parent, 12, 8, "climber"));
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
@@ -55,12 +58,14 @@ public class World extends Screen {
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
+		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
 		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
 		
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
@@ -83,9 +88,9 @@ public class World extends Screen {
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-				//people.add(peopletoadd.get(0));
-				//peopletoadd.remove(0);
-				creationTimer.reset();
+					spawnCount--;
+					people.add(peopletoadd.remove(0));
+					creationTimer.reset();
 			}
 		}
 		creationTimer.update(1/parent.frameRate);
@@ -97,6 +102,10 @@ public class World extends Screen {
 			int i = temp.update(collisionMap,terrain);
 			if (i == 3) {
 				peopleRemoval.add(temp);
+			}
+			else if (i == 4) {
+				peopleRemoval.add(temp);
+				rescued++;
 			}
 		}
 		people.removeAll(peopleRemoval);
@@ -117,9 +126,13 @@ public class World extends Screen {
 		}
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
-		parent.text((int) timeRemaining, 620, 480);
+		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
+		
+		if (timeRemaining <= 0) {
+			System.exit(0);
+		}
 	}
 
 	public int mousePressed(int x, int y) {

@@ -17,16 +17,18 @@ public class Person extends Lego{
 	private Timer animation = new Timer((float)0.1);
 	private Timer anibuild = new Timer((float)0.3);
 	private Timer aniclimb = new Timer((float)0.2);
+	private Timer anifall = new Timer((float)0.2);
 	private Timer build = new Timer((float)0.6);
+	private Timer dig = new Timer((float)0.6);
 	private boolean falling;
 
-	private int walkcycle,climbcycle =0;
+	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
 	
 	Boolean climbing = false;
 	
 	public Person(PApplet p, float x, float y) {
-		this(p, x, y, "default");
+		this(p, x, y, "walking");
 	}
 	
 	public Person(PApplet p, float x, float y, String type) {
@@ -51,6 +53,15 @@ public class Person extends Lego{
 				}
 				aniclimb.reset();
 			}				
+		}else if(falling){
+			anifall.update(1/parent.frameRate);
+			if (anifall.isOver()){
+				fallcycle++;
+				if (fallcycle == 4){
+					fallcycle = 0;
+				}
+				anifall.reset();
+			}	
 		}else if (type.equals("walking")||type.equals("climber")){
 			animation.update(1/parent.frameRate);
 			if (animation.isOver()){
@@ -84,8 +95,11 @@ public class Person extends Lego{
 			if(collisionMap[(int) Math.floor(x/WIDTH)+j][bottom] != null) {
 				downwards[j] = true;
 				down = true;
-				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "lava") {
+				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType().equals("lava")) {
 					return 3;
+				}
+				if(collisionMap[(int) (x/WIDTH)+j][bottom].getType().equals("exit")) {
+					return 4;
 				}
 			}
 		}
@@ -101,6 +115,10 @@ public class Person extends Lego{
 				if(i==(height-1))step = true;
 				else if(i==height)ledge = true;
 				else ahead = true;
+				if( collisionMap[front][(int) (y/HEIGHT)+i].getType().equals("exit")) {
+					System.out.println("exit");
+					return 4;
+				}
 			}
 		}
 		
@@ -128,6 +146,26 @@ public class Person extends Lego{
 				x += facing*30/parent.frameRate;
 			}
 		}else if(type.equals("building")) {
+			
+			build.update(1/parent.frameRate);
+			if (build.isOver()){
+				Brick brick; 
+				build.reset();
+				if (facing==1)
+					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+				else
+					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);				
+				terrain.add(brick);
+				for(int i = 0 ; i < tobuild ; i ++){
+					if (facing==1)
+						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
+					else
+						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
+
+				}
+				
+			}
+		}else if(type.equals("digging")) {
 		
 			build.update(1/parent.frameRate);
 			if (build.isOver()){
@@ -143,7 +181,7 @@ public class Person extends Lego{
 						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
 					else
 						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
-										
+
 				}
 				
 			}
@@ -160,7 +198,7 @@ public class Person extends Lego{
 		}
 
 		if(y>=parent.height) {
-			return 1;
+			return 3;
 		}
 		return 0;
 
@@ -198,12 +236,17 @@ public class Person extends Lego{
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
 		if (falling){
-			sprite =images.get("building").get(105, 0, 105, 128);	
+			sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
 		}else if (climbing){
 			System.out.println(climbcycle);
 			sprite =images.get("climbing").get(climbcycle*93, 0, 93, 128);
+			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
+
+		}else if (type.equals("digging")){
+			System.out.println(digcycle);
+			sprite =images.get("digging").get(0, 0, 93, 128);
 			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
 		}else if (type.equals("walking")||type.equals("climber")){
@@ -229,6 +272,11 @@ public class Person extends Lego{
 	public void build(int x){
 		type = "building";
 		tobuild = x;
+		walkcycle = 0;
+	}
+	
+	public void dig(){
+		type = "digging";
 		walkcycle = 0;
 	}
 	

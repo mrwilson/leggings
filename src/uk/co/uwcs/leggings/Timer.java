@@ -20,4 +20,13 @@ public class Timer {
 	public void reset(){
 		current = 0;
 	}
+	
+	public float getCurrent() {
+		return current;
+	}
+
+	public void setCurrent(float current) {
+		this.current = current;
+	}
+
 }
