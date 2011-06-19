@@ -41,6 +41,8 @@ public class SplashScreen extends Screen {
 				400 <= mouseY &&
 				mouseY <= 516) {
 			System.exit(0);
+			return 0;
+			
 		}
 		return 2;
 	}
