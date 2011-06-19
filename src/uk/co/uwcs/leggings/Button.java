@@ -50,12 +50,12 @@ public class Button {
 			parent.image(buttonImage1, x, y,width,height );
 		else
 			parent.image(buttonImage2, x, y,width,height );
-		parent.image(frontimage, x+16, y,32,64);
+		parent.image(frontimage, x+12, y,24,64);
 		
 	}
 
 	public void draw() {
-		parent.image(buttonImage1, x, y,width,height);		
+	//	parent.image(buttonImage1, x, y,width,height);		
 		parent.image(frontimage, x, y);
 	}
 }

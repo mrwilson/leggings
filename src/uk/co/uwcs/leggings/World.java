@@ -25,6 +25,10 @@ public class World extends Screen {
 	int fourblock = 0;
 	int sixblock = 0;
 	int twoblock = 0;
+	int diggers = 0;
+	int climbers = 0;
+	int umberellas = 0;
+	int hazmats = 0;
 	private int rescued = 0;
 	private int spawnCount;
 	private int rescueAmount;
@@ -51,7 +55,13 @@ public class World extends Screen {
 			rescueAmount = level.getRescueAmount();
 			nextLevel = level.getNextlevel();
 			timeRemaining = level.getTime();
-			
+			fourblock = level.getFourblock();
+			sixblock = level.getSixblock();
+			twoblock = level.getTwoblock();
+			diggers = level.getDiggers();
+			climbers = level.getClimbers();
+			umberellas = level.getUmbrellas();
+			hazmats = level.getHazmats();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -63,13 +73,15 @@ public class World extends Screen {
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
-		buttons.add(new Button(parent, "../res/images/digger.png", 385, 440, 64, 64, 8));
-		buttons.add(new Button(parent, "../res/images/digger.png", 321, 440, 64, 64, 3));
-		buttons.add(new Button(parent, "../res/images/digger.png", 257, 440, 64, 64, 2));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193, 440, 64, 64, 1));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64, 440, 64, 64, 5));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*2, 440, 64, 64, 6));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*3, 440, 64, 64, 7));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400, 440, 48, 64, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48, 440, 48, 64, 3));
+		buttons.add(new Button(parent, "../res/images/hazfaceon.png", 400-48*2, 440, 48, 64, 2));
+		buttons.add(new Button(parent, "../res/images/frontonclimber.png", 400-48*3, 440, 48, 64, 1));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*4, 440, 48, 64, 5));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*5, 440, 48, 64, 6));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*6, 440, 48, 64, 7));
+		buttons.add(new Button(parent, "../res/images/frontonumbrella.png", 400-48*7, 440, 48, 64, 9));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*8, 440, 48, 64, 7));
 		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
 		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
@@ -87,6 +99,7 @@ public class World extends Screen {
 
 		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
 		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
+		Brick.images.put("lava", parent.loadImage("../res/images/lava.png"));
 
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
@@ -174,8 +187,26 @@ public class World extends Screen {
 			else
 				temp.draw(2);
 
-		}
-		
+		}/*
+		buttons.add(new Button(parent, "../res/images/digger.png", 400, 440, 48, 64, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48, 440, 48, 64, 3));
+		buttons.add(new Button(parent, "../res/images/hazfaceon.png", 400-48*2, 440, 48, 64, 2));
+		buttons.add(new Button(parent, "../res/images/frontonclimber.png", 400-48*3, 440, 48, 64, 1));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*4, 440, 48, 64, 5));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*5, 440, 48, 64, 6));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*6, 440, 48, 64, 7));
+		buttons.add(new Button(parent, "../res/images/frontonumbrella.png", 400-48*7, 440, 48, 64, 9));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*8, 440, 48, 64, 7));*/
+		parent.text(twoblock,400-48*4+24, 440 +60);		
+		parent.text(fourblock,400-48*5+24, 440 +60);		
+		parent.text(sixblock,400-48*6+24, 440 +60);		
+		parent.text(diggers,400-48+24, 440 +60);		
+		parent.text(climbers,400-48*3+24, 440 +60);		
+		parent.text(umberellas,400-48*7+24, 440 +60);		
+		parent.text(hazmats,400-48*2+24, 440 +60);		
+//		parent.text(twoblock,400-48*4+24, 440 +60);		
+	//	parent.text(twoblock,400-48*4+24, 440 +60);		
+		//parent.text(twoblock,400-48*4+24, 440 +60);		
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
@@ -200,16 +231,50 @@ public class World extends Screen {
 			Person man = it.next();
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
-					if (nextType.equals("climber")||nextType.equals("hazmat")){
-						man.changeType(nextType);
+					if (nextType.equals("hazmat")){
+						if (hazmats >0){
+							man.changeType(nextType);
+							hazmats--;
+						}
+					}else if (nextType.equals("climber")){
+						if (climbers > 0){
+							man.makeClimber();
+							climbers--;
+						}
 					}else if (nextType.equals("digger")){
-						man.dig();
+						if (diggers>0){
+							if (collisionMap[(int)(man.getX()/10)][(int)(man.getY()/12+4)]!=null){
+								Brick b = collisionMap[(int)(man.getX()/10)][(int)(man.getY()/12+4)];
+								if (b.getWidth() ==2)
+									twoblock++;
+								else if (b.getWidth() ==4)
+									fourblock++;
+								else if (b.getWidth() ==6)
+									sixblock++;
+								man.dig();
+								diggers--;
+							}
+						}
+					}else if (nextType.equals("umbrella")){
+						if (umberellas>0){
+							man.giveUmbrella();
+							umberellas--;
+						}
 					}else if (nextType.equals("2block")){
-						man.build(2);
+						if (twoblock>0){
+							man.build(2);
+							twoblock--;
+						}
 					}else if (nextType.equals("4block")){
-						man.build(4);
+						if (fourblock>0){
+							man.build(4);
+							fourblock--;
+						}
 					}else if (nextType.equals("6block")){
-						man.build(6);
+						if (sixblock>0){
+							man.build(6);
+							sixblock--;
+						}
 					}
 					/*boolean free = true;
 					if (man.getFacing() == 1){
@@ -250,7 +315,8 @@ public class World extends Screen {
 				case 5 : nextType = "2block"; break;
 				case 6 : nextType = "4block"; break;
 				case 7 : nextType = "6block"; break;
-				case 8 : pause();
+				case 8 : pause();break;
+				case 9 : nextType = "umbrella"; 
 				if (clickedbutton == temp) temp.draw(1); break;
 				default : break;
 				}
