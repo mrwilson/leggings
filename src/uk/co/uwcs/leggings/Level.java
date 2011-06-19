@@ -16,8 +16,16 @@ public class Level{
 	int spawnAmount;
 	int spawnX;
 	int spawnY;
+	int rescueAmount;
+	int time;
+	String nextlevel;
 	public Level(PApplet p, File file) throws FileNotFoundException{
-		levelXML = new XMLElement(new FileReader(file)).getChild("bricks");
+		levelXML = new XMLElement(new FileReader(file));
+		nextlevel = levelXML.getString("nextLevel");
+		time = Integer.parseInt(levelXML.getString("time"));
+		rescueAmount = Integer.parseInt(levelXML.getString("save"));
+		
+		levelXML = levelXML.getChild("bricks");
 		levelList = new ArrayList<Brick>();
 		levelPeople = new ArrayList<Person>();
 
@@ -70,4 +78,16 @@ public class Level{
 		this.spawnAmount = spawnAmount;
 	}
 
+	public int getRescueAmount() {
+		return rescueAmount;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public String getNextlevel() {
+		return nextlevel;
+	}
+	
 }

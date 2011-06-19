@@ -38,7 +38,7 @@ public class Main extends PApplet{
 	public void mouseClicked() {
 		int action = world.mousePressed(mouseX, mouseY);
 		switch (action) {
-		case (-1): change = true; nextScreen = new World(this); break;
+		case (-1): change = true; nextScreen = new World(this, "../res/oep/level1.oel"); break;
 		default: break;
 		
 		}

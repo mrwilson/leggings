@@ -1,4 +1,4 @@
-<level>
+<level nextLevel="nextLevel.oel" time="60" save="10">
   <width>800</width>
   <height>600</height>
   <bricks>
