@@ -57,13 +57,15 @@ public class World extends Screen {
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
-		buttons.add(new Button(parent, "../res/images/digger.png", 385, 440, 64, 64, 8));
-		buttons.add(new Button(parent, "../res/images/digger.png", 321, 440, 64, 64, 3));
-		buttons.add(new Button(parent, "../res/images/digger.png", 257, 440, 64, 64, 2));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193, 440, 64, 64, 1));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64, 440, 64, 64, 5));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*2, 440, 64, 64, 6));
-		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*3, 440, 64, 64, 7));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400, 440, 48, 64, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48, 440, 48, 64, 3));
+		buttons.add(new Button(parent, "../res/images/hazfaceon.png", 400-48*2, 440, 48, 64, 2));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*3, 440, 48, 64, 1));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*4, 440, 48, 64, 5));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*5, 440, 48, 64, 6));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*6, 440, 48, 64, 7));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*7, 440, 48, 64, 9));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*8, 440, 48, 64, 7));
 		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
 		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
@@ -193,10 +195,14 @@ public class World extends Screen {
 			Person man = it.next();
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
-					if (nextType.equals("climber")||nextType.equals("hazmat")){
+					if (nextType.equals("hazmat")){
 						man.changeType(nextType);
+					}else if (nextType.equals("climber")){
+						man.makeClimber();
 					}else if (nextType.equals("digger")){
 						man.dig();
+					}else if (nextType.equals("umbrella")){
+						man.giveUmbrella();
 					}else if (nextType.equals("2block")){
 						man.build(2);
 					}else if (nextType.equals("4block")){
@@ -243,7 +249,8 @@ public class World extends Screen {
 				case 5 : nextType = "2block"; break;
 				case 6 : nextType = "4block"; break;
 				case 7 : nextType = "6block"; break;
-				case 8 : pause();
+				case 8 : pause();break;
+				case 9 : nextType = "umbrella"; 
 				if (clickedbutton == temp) temp.draw(1); break;
 				default : break;
 				}
