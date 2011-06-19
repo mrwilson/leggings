@@ -128,8 +128,20 @@ public class World extends Screen {
 			Person man = it.next();
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
-					System.out.println("COLLIDE");
-					man.build(2);
+					boolean free = true;
+					for(int i = 0 ; i < 2 ; i ++){
+						if (collisionMap[(int)(man.getX()/10)+man.getWidth()+i*man.getFacing()][ (int)(man.getY()/12)+man.getHeight()-1] !=null) free = false;
+					}
+					if (free){
+						free = false;
+						for(int i = 0 ; i < 2 ; i ++){
+							if (collisionMap[(int)(man.getX()/10)+man.getWidth()+i*man.getFacing()][ (int)(man.getY()/12)+man.getHeight()] !=null)
+								free = true;
+						}		
+						if (free)
+							man.build(2);
+					}
+						
 				} 
 			}
 
