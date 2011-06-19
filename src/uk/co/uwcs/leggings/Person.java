@@ -17,10 +17,11 @@ public class Person extends Lego{
 	private Timer animation = new Timer((float)0.1);
 	private Timer anibuild = new Timer((float)0.3);
 	private Timer aniclimb = new Timer((float)0.2);
+	private Timer anifall = new Timer((float)0.2);
 	private Timer build = new Timer((float)0.6);
 	private boolean falling;
 
-	private int walkcycle,climbcycle =0;
+	private int walkcycle,climbcycle,fallcycle =0;
 	private String type;
 	
 	Boolean climbing = false;
@@ -51,6 +52,15 @@ public class Person extends Lego{
 				}
 				aniclimb.reset();
 			}				
+		}else if(falling){
+			anifall.update(1/parent.frameRate);
+			if (anifall.isOver()){
+				fallcycle++;
+				if (fallcycle == 4){
+					fallcycle = 0;
+				}
+				anifall.reset();
+			}	
 		}else if (type.equals("walking")||type.equals("climber")){
 			animation.update(1/parent.frameRate);
 			if (animation.isOver()){
@@ -198,7 +208,7 @@ public class Person extends Lego{
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
 		if (falling){
-			sprite =images.get("building").get(105, 0, 105, 128);	
+			sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 
 		}else if (climbing){
