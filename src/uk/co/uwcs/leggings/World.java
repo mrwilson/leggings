@@ -15,6 +15,7 @@ public class World extends Screen {
 	ArrayList<Person> people;
 	ArrayList<Person> peopletoadd;
 	ArrayList<Brick> terrain;
+	ArrayList<Button> buttons;
 	Brick[][] collisionMap = new Brick[1000][1000];
 	HashMap<String,PImage> backgrounds;
 	PApplet parent;
@@ -25,6 +26,8 @@ public class World extends Screen {
 	int twoblock = 0;
 	private int rescued = 0;
 	private int spawnCount;
+	private String nextType;
+	private boolean paused;
 	private int camera = 0;
 	
 //note that a Lego brick is of ratio 6:5
@@ -33,6 +36,7 @@ public class World extends Screen {
 		people = new ArrayList<Person>();
 		terrain = new ArrayList<Brick>();
 		backgrounds = new HashMap<String,PImage>();
+		buttons = new ArrayList<Button>();
 		this.parent = p;
 		try {
 			Level level = new Level(parent, new File("../res/oep/level1.oel"));
@@ -51,6 +55,8 @@ public class World extends Screen {
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
+		buttons.add(new Button(parent, "../res/images/exit1.png", 0, 0, 361, 300, 8));
+		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
 		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
 		backgrounds.put("medium", parent.loadImage("../res/images/mediumbackground.png"));
@@ -83,15 +89,15 @@ public class World extends Screen {
 			}
 		}
 		gui = parent.loadImage("../res/images/GUI.png");
-		timeRemaining = 30;
+		timeRemaining = 120;
 		Collections.reverse(terrain);
+		System.out.println(spawnCount);
 	}
 
 	public void update()
 	{
 		if(creationTimer.isOver()){
 			if (!peopletoadd.isEmpty()){
-					spawnCount--;
 					people.add(peopletoadd.remove(0));
 					creationTimer.reset();
 			}
@@ -128,6 +134,11 @@ public class World extends Screen {
 		{
 			it.next().draw();
 		}
+		Iterator<Button> itc = buttons.iterator();
+		while( itc.hasNext()) {
+			itc.next().draw();
+		}
+		
 		parent.popMatrix();
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
@@ -135,11 +146,16 @@ public class World extends Screen {
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
 		
+		if (timeRemaining <= 0 && (double) rescued/spawnCount <= 0.5) {
+			parent.text("YOU WIN!", 400, 300);
+		}
+		if (rescued == spawnCount){
+			parent.text("YOU WIN!", 400, 300);
 		if (timeRemaining <= 0) {
 		//	System.exit(0);
 		}
 	}
-
+}
 	public int mousePressed(int x, int y) {
 		Iterator<Person> it = people.iterator();
 		while(it.hasNext())
@@ -167,12 +183,42 @@ public class World extends Screen {
 				} 
 			}
 
+			
+			System.out.println("x: "+ x +" y: "+y);
+			System.out.println("x: "+ man.getX() +" y: "+man.getY());
 
 		}
-		System.out.println("x: "+ x +" y: "+y);
-
+		Iterator<Button> itb = buttons.iterator();
+		while( itb.hasNext() ) {
+			System.out.println(x + " " + y);
+			Button temp = itb.next();
+			if( temp.isClicked(x, y) ) {
+				switch( temp.getFlag() ) {
+				case 0 : System.exit(0); break;
+				case 1 : nextType = "climber"; break;
+				case 2 : nextType = "hazmat"; break;
+				case 3 : nextType = "digger"; break;
+				case 4 : nextType = "builder"; break;
+				case 5 : nextType = "2block"; break;
+				case 6 : nextType = "4block"; break;
+				case 7 : nextType = "6block"; break;
+				case 8 : pause(); break;
+				default : break;
+				}
+			}
+		}
 		return 0;
 		
+	}
+	
+	public void pause() {
+		paused = !paused;
+		if (paused) {
+			parent.noLoop(); 
+		}
+		else { 
+			parent.loop();
+ 		}
 	}
 
 }
