@@ -23,6 +23,7 @@ public class Person extends Lego{
 	private Timer dig = new Timer((float)0.6);
 	private boolean falling;
 	private int fallingcounter = 0; 
+	private boolean umbrealla= true;
 
 	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
@@ -46,7 +47,7 @@ public class Person extends Lego{
 		if (falling){
 			fallingcounter++;
 		}else{
-			if (fallingcounter > 100){
+			if (fallingcounter > 100 && !umbrealla){
 				return 3;
 			}
 			fallingcounter =0;
@@ -261,11 +262,16 @@ public class Person extends Lego{
 		parent.pushMatrix(); 
 		parent.scale(facing,1);
 		if (falling){
-			sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
-			if (facing==1){
+			if (umbrealla){
+				sprite =images.get("umbrella");	
 				parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);			
-			}else {
-				parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			}else{
+				sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
+				if (facing==1){
+					parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);			
+				}else {
+					parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+				}
 			}
 		}else if (climbing){
 			System.out.println(climbcycle);
@@ -313,4 +319,10 @@ public class Person extends Lego{
 		walkcycle = 0;
 	}
 	
+	public void giveUmbrella(){
+		umbrealla = true;
+	}
+
 }
+
+
