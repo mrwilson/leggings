@@ -30,12 +30,13 @@ public class Level{
 				spawnAmount = Integer.parseInt(levelXML.getChild(i).getString("count").toString());
 				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
 				spawnY = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
-				System.out.println(spawnAmount + " " + spawnX + " " + spawnY);
-			}
-			if(type.equals("exit")) {
+			}else if(type.equals("exit")) {
 				levelList.add(new Brick(p,x,y,8,6,type,true,type));
-			}
-			else {
+			}else if(type.matches(".*2$")) {
+				levelList.add(new Brick(p,x,y,4,1,type,true,type));
+			}else if(type.matches(".*3$")) {
+				levelList.add(new Brick(p,x,y,6,1,type,true,type));
+			}else{
 				levelList.add(new Brick(p,x,y,type));
 			}
 		}

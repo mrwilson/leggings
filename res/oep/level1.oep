@@ -13,11 +13,22 @@
 			</values>
 		</object>
 		<object name="exit" image="exit.png" width="128" height="128" originX="0" originY="20" />
+
 		<object name="green" image="greenblock.png" width ="32" height="19" originX="0" originY="2" />
 		<object name="grey" image="greyblock.png" width ="32" height="19" originX="0" originY="2" />
 		<object name="yellow" image="yellowblock.png" width ="32" height="19" originX="0" originY="2" />
 		<object name="red" image="redblock.png" width ="32" height="19" originX="0" originY="2" />
 		<object name="blue" image="blueblock.png" width ="32" height="19" originX="0" originY="2" />
+		<object name="green2" image="greenblock2.png" width="64" height="19" originX="0" originY="2" />
+		<object name="grey2" image="greyblock2.png" width="64" height="19" originX="0" originY="2" />
+		<object name="yellow2" image="yellowblock2.png" width="64" height="19" originX="0" originY="2" />
+		<object name="red2" image="redblock2.png" width="64" height="19" originX="0" originY="2" />
+		<object name="blue2" image="blueblock2.png" width="64" height="19" originX="0" originY="2" />
+		<object name="green3" image="greenblock3.png" width="96" height="19" originX="0" originY="2" />
+		<object name="grey3" image="greyblock3.png" width="96" height="19" originX="0" originY="2" />
+		<object name="yellow3" image="yellowblock3.png" width="96" height="19" originX="0" originY="2" />
+		<object name="red3" image="redblock3.png" width="96" height="19" originX="0" originY="2" />
+		<object name="blue3" image="blueblock3.png" width="96" height="19" originX="0" originY="2" />
 	</objects>
 	<layers>
 		<objects name="bricks" gridSize="16"/>

@@ -68,14 +68,28 @@ public class World extends Screen {
 		Person.images.put("digging", parent.loadImage("../res/images/digger.png"));
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
+
+		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
+
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
-		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
-		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
-		
+
+		Brick.images.put("yellow2", parent.loadImage("../res/images/yellowblock2.png"));
+		Brick.images.put("blue2", parent.loadImage("../res/images/blueblock2.png"));
+		Brick.images.put("green2", parent.loadImage("../res/images/greenblock2.png"));
+		Brick.images.put("red2", parent.loadImage("../res/images/redblock2.png"));
+		Brick.images.put("grey2", parent.loadImage("../res/images/greyblock2.png"));
+
+		Brick.images.put("yellow3", parent.loadImage("../res/images/yellowblock3.png"));
+		Brick.images.put("blue3", parent.loadImage("../res/images/blueblock3.png"));
+		Brick.images.put("green3", parent.loadImage("../res/images/greenblock3.png"));
+		Brick.images.put("red3", parent.loadImage("../res/images/redblock3.png"));
+		Brick.images.put("grey3", parent.loadImage("../res/images/greyblock3.png"));
+
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
 			Brick currentBrick = it.next();
