@@ -27,12 +27,14 @@ public class World extends Screen {
 	int twoblock = 0;
 	private int rescued = 0;
 	private int spawnCount;
+	private int rescueAmount;
+	String nextLevel;
 	String nextType;
 	boolean paused = false;
 	private int camera = 0;
 	
 //note that a Lego brick is of ratio 6:5
-	public World(PApplet p)
+	public World(PApplet p, String XMLPath)
 	{
 		people = new ArrayList<Person>();
 		terrain = new ArrayList<Brick>();
@@ -41,11 +43,14 @@ public class World extends Screen {
 		this.parent = p;
 		nextType = "default";
 		try {
-			Level level = new Level(parent, new File("../res/oep/level1.oel"));
+			Level level = new Level(parent, new File(XMLPath));
 			terrain = level.getLevelList();
 			peopletoadd= level.getPeopleList();
 			creationTimer = new Timer(5);
 			spawnCount = level.getSpawnAmount();
+			rescueAmount = level.getRescueAmount();
+			nextLevel = level.getNextlevel();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -176,11 +181,11 @@ public class World extends Screen {
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
 		
-		if (timeRemaining <= 0 && (double) rescued/spawnCount <= 0.5) {
+		if (timeRemaining <= 0 && rescued >= rescueAmount) {
 			parent.background(0);
 			parent.image(parent.loadImage("../ref/images/youwin.png"), 0, 0, parent.height, parent.width);
 		}
-		if (rescued == spawnCount){
+		if (rescued >= rescueAmount){
 			parent.background(0);
 			parent.image(parent.loadImage("../ref/images/youwin.png"), 0, 0, parent.height, parent.width);
 		}
