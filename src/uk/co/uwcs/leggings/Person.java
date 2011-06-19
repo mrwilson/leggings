@@ -215,7 +215,7 @@ public class Person extends Lego{
 			}
 		}
 
-		if(y>=parent.height) {
+		if(y>=400) {
 			return 3;
 		}
 		return 0;
