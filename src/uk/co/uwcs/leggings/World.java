@@ -186,8 +186,26 @@ public class World extends Screen {
 			else
 				temp.draw(2);
 
-		}
+		}/*
+		buttons.add(new Button(parent, "../res/images/digger.png", 400, 440, 48, 64, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48, 440, 48, 64, 3));
+		buttons.add(new Button(parent, "../res/images/hazfaceon.png", 400-48*2, 440, 48, 64, 2));
+		buttons.add(new Button(parent, "../res/images/frontonclimber.png", 400-48*3, 440, 48, 64, 1));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*4, 440, 48, 64, 5));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*5, 440, 48, 64, 6));
+		buttons.add(new Button(parent, "../res/images/frontonbuilder.png", 400-48*6, 440, 48, 64, 7));
+		buttons.add(new Button(parent, "../res/images/frontonumbrella.png", 400-48*7, 440, 48, 64, 9));
+		buttons.add(new Button(parent, "../res/images/digger.png", 400-48*8, 440, 48, 64, 7));*/
 		parent.text(twoblock,400-48*4+24, 440 +60);		
+		parent.text(fourblock,400-48*5+24, 440 +60);		
+		parent.text(sixblock,400-48*6+24, 440 +60);		
+		parent.text(diggers,400-48+24, 440 +60);		
+		parent.text(climbers,400-48*3+24, 440 +60);		
+		parent.text(umberellas,400-48*7+24, 440 +60);		
+		parent.text(hazmats,400-48*2+24, 440 +60);		
+//		parent.text(twoblock,400-48*4+24, 440 +60);		
+	//	parent.text(twoblock,400-48*4+24, 440 +60);		
+		//parent.text(twoblock,400-48*4+24, 440 +60);		
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
