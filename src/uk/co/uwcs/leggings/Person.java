@@ -30,7 +30,7 @@ public class Person extends Lego{
 	Boolean climbing = false;
 	
 	public Person(PApplet p, float x, float y) {
-		this(p, x, y, "climber");
+		this(p, x, y, "walking");
 	}
 	
 	public Person(PApplet p, float x, float y, String type) {
@@ -50,7 +50,6 @@ public class Person extends Lego{
 				return 3;
 			}
 			fallingcounter =0;
-				
 		}
 		
 		
@@ -170,10 +169,17 @@ public class Person extends Lego{
 			if (build.isOver()){
 				Brick brick; 
 				build.reset();
+				String ima ="";
+				switch(tobuild){
+				case 2: ima = "yellow"; break;
+				case 4: ima = "blue2";  break;
+				case 6:  ima = "green3";  break;
+				default: break;
+				}
 				if (facing==1)
-					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, ima, true);
 				else
-					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);				
+					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, ima, true);				
 				terrain.add(brick);
 				for(int i = 0 ; i < tobuild ; i ++){
 					if (facing==1)
@@ -214,7 +220,7 @@ public class Person extends Lego{
 			}
 		}
 
-		if(y>=parent.height) {
+		if(y>=400) {
 			return 3;
 		}
 		return 0;

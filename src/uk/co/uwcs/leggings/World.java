@@ -16,6 +16,7 @@ public class World extends Screen {
 	ArrayList<Person> peopletoadd;
 	ArrayList<Brick> terrain;
 	ArrayList<Button> buttons;
+	Button clickedbutton;
 	Brick[][] collisionMap = new Brick[1000][1000];
 	HashMap<String,PImage> backgrounds;
 	PApplet parent;
@@ -56,7 +57,13 @@ public class World extends Screen {
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
-		buttons.add(new Button(parent, "../res/images/exit1.png", 0, 0, 361, 300, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 385, 440, 64, 64, 8));
+		buttons.add(new Button(parent, "../res/images/digger.png", 321, 440, 64, 64, 3));
+		buttons.add(new Button(parent, "../res/images/digger.png", 257, 440, 64, 64, 2));
+		buttons.add(new Button(parent, "../res/images/digger.png", 193, 440, 64, 64, 1));
+		buttons.add(new Button(parent, "../res/images/digger.png", 193-64, 440, 64, 64, 5));
+		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*2, 440, 64, 64, 6));
+		buttons.add(new Button(parent, "../res/images/digger.png", 193-64*3, 440, 64, 64, 7));
 		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
 		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
@@ -67,16 +74,32 @@ public class World extends Screen {
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
 		Person.images.put("digging", parent.loadImage("../res/images/digger.png"));
+		Person.images.put("umbrella", parent.loadImage("../res/images/umbrella.png"));
+
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
+
+		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
+		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
+
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
 		Brick.images.put("blue", parent.loadImage("../res/images/blueblock.png"));
 		Brick.images.put("green", parent.loadImage("../res/images/greenblock.png"));
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
-		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
-		Brick.images.put("exit", parent.loadImage("../res/images/exit.png"));
-		
+
+		Brick.images.put("yellow2", parent.loadImage("../res/images/yellowblock2.png"));
+		Brick.images.put("blue2", parent.loadImage("../res/images/blueblock2.png"));
+		Brick.images.put("green2", parent.loadImage("../res/images/greenblock2.png"));
+		Brick.images.put("red2", parent.loadImage("../res/images/redblock2.png"));
+		Brick.images.put("grey2", parent.loadImage("../res/images/greyblock2.png"));
+
+		Brick.images.put("yellow3", parent.loadImage("../res/images/yellowblock3.png"));
+		Brick.images.put("blue3", parent.loadImage("../res/images/blueblock3.png"));
+		Brick.images.put("green3", parent.loadImage("../res/images/greenblock3.png"));
+		Brick.images.put("red3", parent.loadImage("../res/images/redblock3.png"));
+		Brick.images.put("grey3", parent.loadImage("../res/images/greyblock3.png"));
+
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
 			Brick currentBrick = it.next();
@@ -135,13 +158,19 @@ public class World extends Screen {
 		{
 			it.next().draw();
 		}
-		Iterator<Button> itc = buttons.iterator();
-		while( itc.hasNext()) {
-			itc.next().draw();
-		}
-		
+
 		parent.popMatrix();
 		parent.image(gui, 0, 400, 800, 200);
+		Iterator<Button> itc = buttons.iterator();
+		while( itc.hasNext()) {
+			Button temp = itc.next();
+			if (temp == clickedbutton)
+				temp.draw(1);
+			else
+				temp.draw(2);
+
+		}
+		
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
@@ -164,7 +193,18 @@ public class World extends Screen {
 			Person man = it.next();
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
-					boolean free = true;
+					if (nextType.equals("climber")||nextType.equals("hazmat")){
+						man.changeType(nextType);
+					}else if (nextType.equals("digger")){
+						man.dig();
+					}else if (nextType.equals("2block")){
+						man.build(2);
+					}else if (nextType.equals("4block")){
+						man.build(4);
+					}else if (nextType.equals("6block")){
+						man.build(6);
+					}
+					/*boolean free = true;
 					if (man.getFacing() == 1){
 						for(int i = 0 ; i < 2 ; i ++){
 							if (collisionMap[(int)(man.getX()/10)+man.getWidth()+i*man.getFacing()][ (int)(man.getY()/12)+man.getHeight()-1] !=null) free = false;
@@ -179,21 +219,21 @@ public class World extends Screen {
 						if (free)
 							man.dig();
 							//man.build(2);
-					}
+					}*/
+					break;
 						
 				} 
 			}
-
-			
-			System.out.println("x: "+ x +" y: "+y);
-			System.out.println("x: "+ man.getX() +" y: "+man.getY());
-
 		}
 		Iterator<Button> itb = buttons.iterator();
 		while( itb.hasNext() ) {
 			System.out.println(x + " " + y);
 			Button temp = itb.next();
 			if( temp.isClicked(x, y) ) {
+				if (clickedbutton == temp)
+					clickedbutton = null;
+				else clickedbutton = temp;
+				
 				switch( temp.getFlag() ) {
 				case 0 : System.exit(0); break;
 				case 1 : nextType = "climber"; break;
@@ -203,7 +243,8 @@ public class World extends Screen {
 				case 5 : nextType = "2block"; break;
 				case 6 : nextType = "4block"; break;
 				case 7 : nextType = "6block"; break;
-				case 8 : pause(); break;
+				case 8 : pause();
+				if (clickedbutton == temp) temp.draw(1); break;
 				default : break;
 				}
 			}
