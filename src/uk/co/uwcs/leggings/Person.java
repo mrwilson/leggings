@@ -107,7 +107,6 @@ public class Person extends Lego{
 		if(falling){
 			if (down) falling = false;
 			else y += 40/parent.frameRate;
-			System.out.println("UHIUGIUGIUGBIUG");
 		}else if(type.equals("climber")) {
 			if(ahead){
 				y -= 30/parent.frameRate;
@@ -136,7 +135,7 @@ public class Person extends Lego{
 				Brick brick = new Brick(parent, (int)(x/WIDTH)+width, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
 				terrain.add(brick);
 				for(int i = 0 ; i < tobuild ; i ++){
-					collisionMap[(int)(x/WIDTH)+width+i][ (int)(y/HEIGHT)+height-1] = brick;
+					collisionMap[(int)(x/WIDTH)+width+i*facing][ (int)(y/HEIGHT)+height-1] = brick;
 				}
 				
 			}
@@ -157,6 +156,18 @@ public class Person extends Lego{
 		}
 		return 0;
 
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getFacing() {
+		return facing;
 	}
 
 	public float getX() {
@@ -193,7 +204,7 @@ public class Person extends Lego{
 
 		}else if (type.equals("building")){
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH),height*HEIGHT);
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 		}
 		parent.popMatrix();
 	
