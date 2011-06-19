@@ -18,9 +18,11 @@ public class Person extends Lego{
 	private Timer anibuild = new Timer((float)0.3);
 	private Timer aniclimb = new Timer((float)0.2);
 	private Timer anifall = new Timer((float)0.2);
+	private Timer anidig = new Timer((float)0.2);
 	private Timer build = new Timer((float)0.6);
 	private Timer dig = new Timer((float)0.6);
 	private boolean falling;
+	private int fallingcounter = 0; 
 
 	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
@@ -41,6 +43,16 @@ public class Person extends Lego{
 		this.type = type;
 	}
 	public int update(Brick[][] collisionMap,ArrayList<Brick> terrain) {
+		if (falling){
+			fallingcounter++;
+		}else{
+			if (fallingcounter > 100){
+				return 3;
+			}
+			fallingcounter =0;
+				
+		}
+		
 		
 		/******************************animation stuff*************************************/
 			
@@ -62,7 +74,7 @@ public class Person extends Lego{
 				}
 				anifall.reset();
 			}	
-		}else if (type.equals("walking")||type.equals("climber")){
+		}else if (type.equals("walking")||type.equals("climber")||type.equals("hazmat")){
 			animation.update(1/parent.frameRate);
 			if (animation.isOver()){
 				walkcycle++;
@@ -79,6 +91,15 @@ public class Person extends Lego{
 					type = "walking";
 				}
 				anibuild.reset();
+			}
+		}else if(type.equals("digging")){
+			anidig.update(1/parent.frameRate);
+			if (anidig.isOver()){
+				walkcycle++;
+				if (walkcycle == 4){
+					type = "walking";
+				}
+				anidig.reset();
 			}
 		}
 
@@ -167,21 +188,19 @@ public class Person extends Lego{
 			}
 		}else if(type.equals("digging")) {
 		
-			build.update(1/parent.frameRate);
-			if (build.isOver()){
+			dig.update(1/parent.frameRate);
+			if (dig.isOver()){
 				Brick brick; 
-				build.reset();
+				dig.reset();
 				if (facing==1)
-					brick = new Brick(parent, (int)(x/WIDTH)+width+1, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);
+					brick = collisionMap[(int)(x/WIDTH)+(width)][(int)(y/HEIGHT)+height];
 				else
-					brick = new Brick(parent, (int)(x/WIDTH)-tobuild, (int)(y/HEIGHT)+height-1, tobuild, 1, "green", true);				
-				terrain.add(brick);
-				for(int i = 0 ; i < tobuild ; i ++){
-					if (facing==1)
-						collisionMap[(int)(x/WIDTH)+(width+i+1)][ (int)(y/HEIGHT)+height-1] = brick;
-					else
-						collisionMap[(int)(x/WIDTH)-(width+i)][ (int)(y/HEIGHT)+height-1] = brick;
-
+					brick = collisionMap[(int)(x/WIDTH)+(width)][(int)(y/HEIGHT)+height];
+				if(brick != null){
+					for(int i=0; i<brick.getWidth(); ++i) {
+						collisionMap[(int)(brick.getX())+i][(int)(brick.getY())] = null;
+					}
+					terrain.remove(brick);
 				}
 				
 			}
@@ -237,8 +256,11 @@ public class Person extends Lego{
 		parent.scale(facing,1);
 		if (falling){
 			sprite =images.get("falling").get(fallcycle*92, 0, 92, 128);	
-			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
-
+			if (facing==1){
+				parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);			
+			}else {
+				parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			}
 		}else if (climbing){
 			System.out.println(climbcycle);
 			sprite =images.get("climbing").get(climbcycle*93, 0, 93, 128);
@@ -247,12 +269,14 @@ public class Person extends Lego{
 		}else if (type.equals("digging")){
 			System.out.println(digcycle);
 			sprite =images.get("digging").get(0, 0, 93, 128);
-			parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
-
+			if (facing==1){
+				parent.image(sprite,facing*x,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			}else {
+				parent.image(sprite,facing*x,y+walkcycle,(int)(facing*width*WIDTH*3),height*HEIGHT);
+			}
 		}else if (type.equals("walking")||type.equals("climber")){
 			sprite =images.get("sprite").get(walkcycle*54, 0, 54, 128);
 			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
-
 		}else if (type.equals("building")){
 			sprite =images.get("building").get(walkcycle*105, 0, 105, 128);	
 			if (facing==1){
@@ -260,6 +284,9 @@ public class Person extends Lego{
 			}else {
 				parent.image(sprite,facing*x+10,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 			}
+		}else if (type.equals("hazmat")){
+			sprite =images.get("hazmat").get(walkcycle*60, 0, 60, 128);
+			parent.image(sprite,facing*x,y+2,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
 		}
 		parent.popMatrix();
 	

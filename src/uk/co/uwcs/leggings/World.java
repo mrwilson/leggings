@@ -28,6 +28,7 @@ public class World extends Screen {
 	private int spawnCount;
 	private String nextType;
 	private boolean paused;
+	private int camera = 0;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -61,8 +62,10 @@ public class World extends Screen {
 		backgrounds.put("medium", parent.loadImage("../res/images/mediumbackground.png"));
 		backgrounds.put("hard", parent.loadImage("../res/images/hardbackground.png"));
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
+		Person.images.put("hazmat", parent.loadImage("../res/images/hazmat.png"));
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
+		Person.images.put("digging", parent.loadImage("../res/images/digger.png"));
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
@@ -118,8 +121,9 @@ public class World extends Screen {
 	}
 
 	public void display() {
-		parent.image(backgrounds.get("hard"), 0, 0, parent.width, parent.height);
-		
+		parent.image(backgrounds.get("easy"), 0, 0, parent.width, parent.height);
+		parent.pushMatrix();
+		parent.translate(camera, 0);
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
 		{
@@ -135,6 +139,7 @@ public class World extends Screen {
 			itc.next().draw();
 		}
 		
+		parent.popMatrix();
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
 		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
@@ -146,9 +151,11 @@ public class World extends Screen {
 		}
 		if (rescued == spawnCount){
 			parent.text("YOU WIN!", 400, 300);
+		if (timeRemaining <= 0) {
+		//	System.exit(0);
 		}
 	}
-
+}
 	public int mousePressed(int x, int y) {
 		Iterator<Person> it = people.iterator();
 		while(it.hasNext())
@@ -157,8 +164,10 @@ public class World extends Screen {
 			if (man.getX() <= x && man.getX() >= x -15 ){
 				if (man.getY() <= y && man.getY() >= y - 48 ){
 					boolean free = true;
-					for(int i = 0 ; i < 2 ; i ++){
-						if (collisionMap[(int)(man.getX()/10)+man.getWidth()+i*man.getFacing()][ (int)(man.getY()/12)+man.getHeight()-1] !=null) free = false;
+					if (man.getFacing() == 1){
+						for(int i = 0 ; i < 2 ; i ++){
+							if (collisionMap[(int)(man.getX()/10)+man.getWidth()+i*man.getFacing()][ (int)(man.getY()/12)+man.getHeight()-1] !=null) free = false;
+						}
 					}
 					if (free){
 						free = false;
@@ -167,11 +176,13 @@ public class World extends Screen {
 								free = true;
 						}		
 						if (free)
-							man.build(2);
+							man.dig();
+							//man.build(2);
 					}
 						
 				} 
 			}
+
 			
 			System.out.println("x: "+ x +" y: "+y);
 			System.out.println("x: "+ man.getX() +" y: "+man.getY());
@@ -196,7 +207,6 @@ public class World extends Screen {
 				}
 			}
 		}
-		
 		return 0;
 		
 	}
