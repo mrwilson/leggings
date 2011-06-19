@@ -102,7 +102,7 @@ public class World extends Screen {
 	}
 
 	public void display() {
-		parent.image(backgrounds.get("hard"), 0, 0, parent.width, parent.height);
+		parent.image(backgrounds.get("easy"), 0, 0, parent.width, parent.height);
 		
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
