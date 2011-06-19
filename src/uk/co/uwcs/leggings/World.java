@@ -58,6 +58,7 @@ public class World extends Screen {
 		Person.images.put("hazmat", parent.loadImage("../res/images/hazmat.png"));
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
+		Person.images.put("digging", parent.loadImage("../res/images/digger.png"));
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
 		Brick.images.put("yellow", parent.loadImage("../res/images/yellowblock.png"));
@@ -156,8 +157,10 @@ public class World extends Screen {
 								free = true;
 						}		
 						if (free)
-							man.build(2);
-					}		
+							man.dig();
+							//man.build(2);
+					}
+						
 				} 
 			}
 
