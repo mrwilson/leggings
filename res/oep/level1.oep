@@ -8,6 +8,13 @@
 	<values>
 		<string name="nextLevel" default="nextLevel.oel" />
 		<integer name="time" default="60" />
+		<integer name="save" default="10" />
+		<integer name="diggers" default="1" />
+		<integer name="climbers" default="0" />
+		<integer name="hazmats" default="0" />
+		<integer name="twoblock" default="0" />
+		<integer name="fourblock" default="0" />
+		<integer name="sixblock" default="0" />
 	</values>
 	<objects>
 		<object name="spawn" image="spawn.png" width="128" height="100" originX="0" originY="0">
