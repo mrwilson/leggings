@@ -30,7 +30,7 @@ public class Person extends Lego{
 	Boolean climbing = false;
 	
 	public Person(PApplet p, float x, float y) {
-		this(p, x, y, "climber");
+		this(p, x, y, "walking");
 	}
 	
 	public Person(PApplet p, float x, float y, String type) {
@@ -50,7 +50,6 @@ public class Person extends Lego{
 				return 3;
 			}
 			fallingcounter =0;
-				
 		}
 		
 		

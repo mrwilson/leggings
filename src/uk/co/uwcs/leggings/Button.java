@@ -6,7 +6,9 @@ import processing.core.PImage;
 
 public class Button {
 	private PApplet parent;
-	private PImage buttonImage;
+	private PImage buttonImage1;
+	private PImage buttonImage2;
+	private PImage frontimage;
 	private int x;
 	private int y;
 	private int width;
@@ -15,7 +17,9 @@ public class Button {
 	
 	public Button(PApplet p, String path, int x, int y, int width, int height, int flag) {
 		this.parent = p;
-		this.buttonImage = parent.loadImage(path);
+		this.buttonImage1 = parent.loadImage("../res/images/pressedbutton.png");
+		this.buttonImage2 = parent.loadImage("../res/images/greybutton.png");
+		this.frontimage = parent.loadImage(path);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -38,11 +42,20 @@ public class Button {
 	}
 	
 	public PImage getButtonImage() {
-		return buttonImage;
+		return buttonImage1;
 	}
 	
+	public void draw(int on) {
+		if (on==1)
+			parent.image(buttonImage1, x, y,width,height );
+		else
+			parent.image(buttonImage2, x, y,width,height );
+		parent.image(frontimage, x+16, y,32,64);
+		
+	}
+
 	public void draw() {
-		parent.image(buttonImage, x, y);
+		parent.image(buttonImage1, x, y,width,height);		
+		parent.image(frontimage, x, y);
 	}
-	
 }
