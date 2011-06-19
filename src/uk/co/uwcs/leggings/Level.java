@@ -26,13 +26,13 @@ public class Level{
 			int x = Integer.parseInt(levelXML.getChild(i).getString("x").toString())/16; //divided by 16 due to ogmo grid size
 			int y = Integer.parseInt(levelXML.getChild(i).getString("y").toString())/16;
 			if(type.equals("spawn")) {
-				levelList.add(new Brick(p,x,y,8,6,type,false));
+				levelList.add(new Brick(p,x,y,8,6,type,false,type));
 				spawnAmount = Integer.parseInt(levelXML.getChild(i).getString("count").toString());
 				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
 				spawnY = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
 			}
 			if(type.equals("exit")) {
-				levelList.add(new Brick(p,x,y,8,6,type,false));
+				levelList.add(new Brick(p,x,y,8,6,type,true,type));
 			}
 			else {
 				levelList.add(new Brick(p,x,y,type));
