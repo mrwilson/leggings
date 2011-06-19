@@ -1,4 +1,4 @@
-<level nextLevel="nextLevel.oel" time="60" save="10" diggers="1" umbrellas="1" climbers="3" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
+<level nextLevel="nextLevel.oel" time="60" save="10" diggers="1" umbrellas="5" climbers="3" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
   <width>800</width>
   <height>600</height>
   <bricks>
@@ -53,5 +53,17 @@
     <red3 x="480" y="176"/>
     <yellow3 x="96" y="288"/>
     <yellow2 x="48" y="336"/>
+    <lava x="144" y="208"/>
+    <lava x="112" y="208"/>
+    <lava x="80" y="208"/>
+    <lava x="80" y="224"/>
+    <lava x="112" y="224"/>
+    <lava x="144" y="224"/>
+    <yellow x="144" y="240"/>
+    <yellow x="112" y="240"/>
+    <yellow x="80" y="240"/>
+    <yellow x="48" y="240"/>
+    <yellow x="48" y="224"/>
+    <yellow x="48" y="208"/>
   </bricks>
 </level>
