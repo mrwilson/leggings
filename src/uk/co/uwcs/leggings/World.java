@@ -23,6 +23,7 @@ public class World extends Screen {
 	int fourblock = 0;
 	int sixblock = 0;
 	int twoblock = 0;
+	private int rescued = 0;
 	
 //note that a Lego brick is of ratio 6:5
 	public World(PApplet p)
@@ -100,6 +101,10 @@ public class World extends Screen {
 			if (i == 3) {
 				peopleRemoval.add(temp);
 			}
+			else if (i == 4) {
+				peopleRemoval.add(temp);
+				rescued++;
+			}
 		}
 		people.removeAll(peopleRemoval);
 	}
@@ -119,9 +124,13 @@ public class World extends Screen {
 		}
 		parent.image(gui, 0, 400, 800, 200);
 		parent.textSize(32);
-		parent.text((int) timeRemaining, 620, 480);
+		parent.text((int) timeRemaining + " - " + rescued, 600, 480);
 		parent.fill(0, 102, 153);
 		timeRemaining -= (1/parent.frameRate);
+		
+		if (timeRemaining <= 0) {
+			System.exit(0);
+		}
 	}
 
 	public int mousePressed(int x, int y) {

@@ -97,6 +97,9 @@ public class Person extends Lego{
 				if (collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "lava") {
 					return 3;
 				}
+				if(collisionMap[(int) (x/WIDTH)+j][bottom].getType() == "exit") {
+					return 4;
+				}
 			}
 		}
 		
@@ -111,6 +114,9 @@ public class Person extends Lego{
 				if(i==(height-1))step = true;
 				else if(i==height)ledge = true;
 				else ahead = true;
+				if( collisionMap[front][(int) (y/HEIGHT)+i].getType() == "exit" ) {
+					return 4;
+				}
 			}
 		}
 		
