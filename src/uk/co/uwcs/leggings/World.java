@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import processing.core.PApplet;
@@ -15,7 +16,7 @@ public class World extends Screen {
 	ArrayList<Person> peopletoadd;
 	ArrayList<Brick> terrain;
 	Brick[][] collisionMap = new Brick[1000][1000];
-	PImage background;
+	HashMap<String,PImage> backgrounds;
 	PApplet parent;
 	float timeRemaining;
 	Timer creationTimer;
@@ -28,6 +29,7 @@ public class World extends Screen {
 	{
 		people = new ArrayList<Person>();
 		terrain = new ArrayList<Brick>();
+		backgrounds = new HashMap<String,PImage>();
 		this.parent = p;
 		try {
 			Level level = new Level(parent, new File("../res/oep/level1.oel"));
@@ -45,7 +47,10 @@ public class World extends Screen {
 		//people.add(new Person(parent, 24, 8));
 		//people.add(new Person(parent, 32, 8));
 
-		background = parent.loadImage("../res/images/leggings.png");
+		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
+		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
+		backgrounds.put("medium", parent.loadImage("../res/images/mediumbackground.png"));
+		backgrounds.put("hard", parent.loadImage("../res/images/hardbackground.png"));
 		Person.images.put("default", parent.loadImage("../res/images/IMAG0040.png"));
 		Person.images.put("sprite", parent.loadImage("../res/images/legosprite.png"));
 		Person.images.put("building", parent.loadImage("../res/images/buildani.png"));
@@ -55,7 +60,7 @@ public class World extends Screen {
 		Brick.images.put("red", parent.loadImage("../res/images/redblock.png"));
 		Brick.images.put("grey", parent.loadImage("../res/images/greyblock.png"));
 		Brick.images.put("spawn", parent.loadImage("../res/images/spawn.png"));
-
+		
 		Iterator<Brick> it = terrain.iterator();
 		while(it.hasNext()) {
 			Brick currentBrick = it.next();
@@ -97,7 +102,7 @@ public class World extends Screen {
 	}
 
 	public void display() {
-		//parent.image(background, 0, 0, parent.width, parent.height);
+		parent.image(backgrounds.get("hard"), 0, 0, parent.width, parent.height);
 		
 		Iterator<Brick> itb = terrain.iterator();
 		while(itb.hasNext())
