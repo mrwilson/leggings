@@ -14,6 +14,7 @@ public class World extends Screen {
 	PImage win;
 	ArrayList<Person> people;
 	ArrayList<Person> peopletoadd;
+	ArrayList<Person> stoppers= new ArrayList<Person>();
 	ArrayList<Brick> terrain;
 	ArrayList<Button> buttons;
 	Button clickedbutton;
@@ -29,6 +30,7 @@ public class World extends Screen {
 	int climbers = 0;
 	int umberellas = 0;
 	int hazmats = 0;
+	int numstoppers =10;
 	private int rescued = 0;
 	private int spawnCount;
 	private int rescueAmount;
@@ -47,7 +49,7 @@ public class World extends Screen {
 		backgrounds = new HashMap<String,PImage>();
 		buttons = new ArrayList<Button>();
 		this.parent = p;
-		creationTimer = new Timer(5);
+		creationTimer = new Timer(3);
 
 		nextType = "default";
 		try {
@@ -93,6 +95,7 @@ public class World extends Screen {
 		Person.images.put("leg", parent.loadImage("../res/images/leg.png"));
 		Person.images.put("head", parent.loadImage("../res/images/head.png"));
 		Person.images.put("chest", parent.loadImage("../res/images/chest.png"));
+		Person.images.put("stopper", parent.loadImage("../res/images/stopper.png"));
 
 		Person.images.put("climbing", parent.loadImage("../res/images/climbingsprite.png"));
 		Person.images.put("falling", parent.loadImage("../res/images/fallingsprite.png"));
@@ -150,7 +153,7 @@ public class World extends Screen {
 		while(it.hasNext())
 		{
 			Person temp = it.next();
-			int i = temp.update(collisionMap,terrain);
+			int i = temp.update(collisionMap,terrain,stoppers);
 			if (i == 3) {
 				peopleRemoval.add(temp);
 			}
@@ -256,11 +259,13 @@ public class World extends Screen {
 						if (hazmats >0){
 							man.changeType(nextType);
 							hazmats--;
+							break;
 						}
 					}else if (nextType.equals("climber")&&!man.isClimber()){
 						if (climbers > 0){
 							man.makeClimber();
 							climbers--;
+							break;
 						}
 					}else if (nextType.equals("digger")){
 						if (diggers>0){
@@ -276,11 +281,20 @@ public class World extends Screen {
 								diggers--;
 							}
 						}
+						break;
 					}else if (nextType.equals("umbrella")){
 						if (umberellas>0&&!man.hasUmbrella()){
 							man.giveUmbrella();
 							umberellas--;
 						}
+						break;
+					}else if (nextType.equals("stopper")){
+						if (numstoppers>0&&!man.isStopper()){
+							man.makeStopper();
+							numstoppers--;
+							stoppers.add(man);
+						}
+						break;
 					}else if (nextType.equals("2block")){
 						if (twoblock>0){
 							boolean free = true;
@@ -297,7 +311,7 @@ public class World extends Screen {
 									}
 									if (free){
 										man.build(2);
-										//twoblock--;			
+										twoblock--;			
 									}
 								}
 							}
@@ -319,6 +333,7 @@ public class World extends Screen {
 								}
 							}
 						}
+						break;
 					}else if (nextType.equals("4block")){
 						if (fourblock>0){
 							boolean free = true;
@@ -357,6 +372,7 @@ public class World extends Screen {
 								}
 							}
 						}
+						break;
 					}else if (nextType.equals("6block")){
 						if (sixblock>0){
 							boolean free = true;
@@ -394,11 +410,9 @@ public class World extends Screen {
 									}
 								}
 							}
+							break;
 						}
-
 					}
-					break;
-						
 				} 
 			}
 		}
@@ -421,7 +435,9 @@ public class World extends Screen {
 				case 7 : nextType = "6block"; break;
 				case 8 : pause();break;
 				case 9 : nextType = "umbrella"; break;
-				case 10 : parent.changeScreen(new World(parent,XMLPath));
+				case 10 : parent.changeScreen(new World(parent,XMLPath));break;
+				case 11 : nextType = "stopper"; break;
+				case 12 : nextType = "kill"; 
 				if (clickedbutton == temp) temp.draw(1); break;
 				default : break;
 				}

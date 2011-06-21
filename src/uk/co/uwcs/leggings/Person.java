@@ -2,6 +2,7 @@ package uk.co.uwcs.leggings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -37,6 +38,7 @@ public class Person extends Lego{
 	private float heady = 0;
 	private int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
+	private boolean stopper = false;
 	
 	Boolean climbing = false;
 	
@@ -53,8 +55,8 @@ public class Person extends Lego{
 		this.height = 4;
 		this.type = type;
 	}
-	public int update(Brick[][] collisionMap,ArrayList<Brick> terrain) {
-		if(!dead){
+	public int update(Brick[][] collisionMap,ArrayList<Brick> terrain,ArrayList<Person> stoppers) {
+		if(!dead&&!stopper){
 			if (falling){
 				fallingcounter++;
 			}else{
@@ -63,6 +65,20 @@ public class Person extends Lego{
 				}
 				fallingcounter =0;
 			}
+			
+			Iterator<Person> it = stoppers.iterator();
+			while(it.hasNext())
+			{
+				Person temp = it.next();
+				if ((((temp.getX()+WIDTH > x && temp.getX() < x+WIDTH)
+						|| (temp.getX() <x+WIDTH && temp.getX()+WIDTH > x)))
+						&&(((temp.getY()+HEIGHT > y && temp.getY() < y+HEIGHT)
+								|| (temp.getY() <y+HEIGHT && temp.getY()+HEIGHT > y)))){
+					facing = - facing;
+					break;
+				}
+			}
+
 			
 			/******************************animation stuff*************************************/
 			if(climbing){
@@ -196,8 +212,7 @@ public class Person extends Lego{
 			if(y>=400) {
 				return 3;
 			}
-		}
-		else{
+		}else if (dead){
 			armx -= 0.5;
 			army -= 0.1-deathtimer.getCurrent()/8;
 			legx -= 0.25;
@@ -211,7 +226,7 @@ public class Person extends Lego{
 			}
 			deathtimer.update(1/parent.frameRate);
 		}
-			return 0;
+		return 0;
 
 	}
 
@@ -263,6 +278,9 @@ public class Person extends Lego{
 						parent.image(sprite,facing*x+20,y+2,(int)(facing*width*WIDTH*3),height*HEIGHT);
 					}
 				}
+			}else if (stopper){
+				parent.image(images.get("stopper"),facing*x,y,(int)(facing*width*WIDTH*1.5),height*HEIGHT);
+	
 			}else if (climbing){
 				sprite =images.get("climbing").get(climbcycle*93, 0, 93, 128);
 				parent.image(sprite,facing*x-20,y,(int)(facing*width*WIDTH*3),height*HEIGHT);
@@ -328,6 +346,9 @@ public class Person extends Lego{
 	public boolean isClimber(){
 		return climber;
 	}
+	
+	
+	
 	public void climbingUpdate(){
 		aniclimb.update(1/parent.frameRate);
 		if (aniclimb.isOver()){
@@ -381,6 +402,18 @@ public class Person extends Lego{
 			}
 			anidig.reset();
 		}
+	}
+	
+	public boolean isStopper(){
+		return stopper;
+	}
+	
+	public void makeStopper(){
+		stopper = true;
+	}
+
+	public void kill(){
+		dead = true;
 	}
 }
 
