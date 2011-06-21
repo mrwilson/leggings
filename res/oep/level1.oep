@@ -16,6 +16,7 @@
 		<integer name="twoblock" default="0" />
 		<integer name="fourblock" default="0" />
 		<integer name="sixblock" default="0" />
+		<integer name="stoppers" default="0" />
 	</values>
 	<objects>
 		<object name="spawn" image="spawn.png" width="128" height="100" originX="0" originY="0">

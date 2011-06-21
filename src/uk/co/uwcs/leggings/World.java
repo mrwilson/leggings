@@ -30,7 +30,7 @@ public class World extends Screen {
 	int climbers = 0;
 	int umberellas = 0;
 	int hazmats = 0;
-	int numstoppers =10;
+	int numstoppers =0;
 	private int rescued = 0;
 	private int spawnCount;
 	private int rescueAmount;
@@ -67,6 +67,7 @@ public class World extends Screen {
 			climbers = level.getClimbers();
 			umberellas = level.getUmbrellas();
 			hazmats = level.getHazmats();
+			numstoppers = level.getStoppers();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -80,6 +81,8 @@ public class World extends Screen {
 		buttons.add(new Button(parent, "../res/images/frontonumbrella.png", 400-48*7, 440, 48, 64, 9));
 		buttons.add(new Button(parent, "../res/images/paws.png", 660,520, 48, 64, 8));
 		buttons.add(new Button(parent, "../res/images/refresh.png", 600, 520, 48, 64, 10));
+		buttons.add(new Button(parent, "../res/images/dead.png",  400-48*8, 440, 48, 64, 12));
+		buttons.add(new Button(parent, "../res/images/stopper.png",  400, 440, 48, 64, 11));
 		
 		backgrounds.put("title", parent.loadImage("../res/images/leggings.png"));
 		backgrounds.put("easy", parent.loadImage("../res/images/easybackground.png"));
@@ -163,6 +166,7 @@ public class World extends Screen {
 			}
 		}
 		people.removeAll(peopleRemoval);
+		stoppers.removeAll(peopleRemoval);
 	}
 
 	public void display() {
@@ -229,6 +233,11 @@ public class World extends Screen {
 			parent.text(hazmats,400-48*2+14, 440 +60);		
 		else
 			parent.text(hazmats,400-48*2+24, 440 +60);	
+		
+		if (numstoppers>9)
+			parent.text(numstoppers,400+14, 440 +60);		
+		else
+			parent.text(numstoppers,400+24, 440 +60);
 		parent.textSize(32);
 		parent.text((int) timeRemaining , 600, 480);
 		parent.fill(0, 102, 153);
@@ -267,6 +276,9 @@ public class World extends Screen {
 							climbers--;
 							break;
 						}
+					}else if (nextType.equals("kill")){
+						man.kill();
+						break;
 					}else if (nextType.equals("digger")){
 						if (diggers>0){
 							if (collisionMap[(int)(man.getX()/10)][(int)(man.getY()/12+4)]!=null){

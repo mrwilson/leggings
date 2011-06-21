@@ -25,6 +25,12 @@ public class Level{
 	int twoblock;
 	int fourblock;
 	int sixblock;
+	int stoppers;
+	
+	public int getStoppers() {
+		return stoppers;
+	}
+
 	String nextlevel;
 	public Level(PApplet p, File file) throws FileNotFoundException{
 		levelXML = new XMLElement(new FileReader(file));
@@ -38,6 +44,7 @@ public class Level{
 		twoblock= Integer.parseInt(levelXML.getString("twoblock"));
 		fourblock= Integer.parseInt(levelXML.getString("fourblock"));
 		sixblock= Integer.parseInt(levelXML.getString("sixblock"));
+		stoppers= Integer.parseInt(levelXML.getString("stoppers"));
 		levelXML = levelXML.getChild("bricks");
 		levelList = new ArrayList<Brick>();
 		levelPeople = new ArrayList<Person>();
