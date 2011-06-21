@@ -1,4 +1,4 @@
-<level nextLevel="nextLevel.oel" time="60" save="10" diggers="1" umbrellas="5" climbers="3" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
+<level nextLevel="level1.oel" time="60" save="1" diggers="1" umbrellas="15" climbers="15" hazmats="2" twoblock="1" fourblock="2" sixblock="0">
   <width>800</width>
   <height>600</height>
   <bricks>
@@ -30,7 +30,7 @@
     <grey x="208" y="224"/>
     <grey x="240" y="240"/>
     <grey x="464" y="240"/>
-    <spawn x="176" y="80" count="2" interval="1000"/>
+    <spawn x="176" y="80" count="15" interval="1000"/>
     <yellow x="528" y="304"/>
     <blue x="368" y="192"/>
     <blue x="464" y="208"/>

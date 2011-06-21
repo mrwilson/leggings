@@ -3,7 +3,7 @@ package uk.co.uwcs.leggings;
 public class Timer {
 	
 	private float time;
-	private float current;
+	private float current=0;
 	
 	public Timer(float t){
 		time = t;
