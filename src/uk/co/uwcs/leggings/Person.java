@@ -60,7 +60,7 @@ public class Person extends Lego{
 			if (falling){
 				fallingcounter++;
 			}else{
-				if (fallingcounter > 100 && !umbrealla){
+				if (fallingcounter > 170 && !umbrealla){
 					dead = true;
 				}
 				fallingcounter =0;

@@ -56,7 +56,7 @@ public class Level{
 			if(type.equals("spawn")) {
 				levelList.add(new Brick(p,x,y,8,6,type,false,type));
 				spawnAmount = Integer.parseInt(levelXML.getChild(i).getString("count").toString());
-				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString());
+				spawnX = Integer.parseInt(levelXML.getChild(i).getString("x").toString())+50;
 				spawnY = Integer.parseInt(levelXML.getChild(i).getString("y").toString());
 			}else if(type.equals("exit")) {
 				levelList.add(new Brick(p,x,y,8,6,type,true,type));
