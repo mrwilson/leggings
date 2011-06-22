@@ -41,7 +41,7 @@ public class SplashScreen extends Screen {
 			Button temp = it.next();
 			if (temp.isClicked(mouseX, mouseY)) {
 				switch(temp.getFlag()) {
-				case 1 : parent.changeScreen(new World(parent, "../res/oep/level1.oel"));break; 
+				case 1 : parent.changeScreen(new World(parent, "../res/oep/level6.oel"));break; 
 				case 0 : System.exit(0); break;
 				default : break;
 				
