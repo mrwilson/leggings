@@ -32,7 +32,7 @@ public class World extends Screen {
 	int hazmats = 0;
 	int numstoppers =0;
 	private int rescued = 0;
-	private int spawnCount;
+	int spawnCount;
 	private int rescueAmount;
 	String nextLevel;
 	String nextType;

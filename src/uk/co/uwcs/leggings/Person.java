@@ -36,7 +36,7 @@ public class Person extends Lego{
 	private float chesty = 0;
 	private float headx = 0;
 	private float heady = 0;
-	private int walkcycle,climbcycle,fallcycle,digcycle =0;
+	int walkcycle,climbcycle,fallcycle,digcycle =0;
 	private String type;
 	private boolean stopper = false;
 	
